@@ -43,6 +43,8 @@ See [`docs/workflow.md`](docs/workflow.md) and [`docs/source-policy.md`](docs/so
 
 The current architecture and research-design synthesis is documented in [`docs/design-synthesis.md`](docs/design-synthesis.md).
 
+The latest literature and product snapshot is [`digests/2026-09-04-literature-product-snapshot.md`](digests/2026-09-04-literature-product-snapshot.md), with the corresponding product comparison in [`signals/2026-09-04-roleplay-product-landscape.md`](signals/2026-09-04-roleplay-product-landscape.md).
+
 ## arXiv intake
 
 arXiv supports daily listing subscriptions by email. Its official instructions require a plain-text message sent to the relevant archive, with subject classes added in the message body. See the [official arXiv subscription instructions](https://info.arxiv.org/help/subscribe.html#subscribe-to-daily-listing-emails).
