@@ -41,6 +41,8 @@ The intended loop is:
 
 See [`docs/workflow.md`](docs/workflow.md) and [`docs/source-policy.md`](docs/source-policy.md).
 
+The current architecture and research-design synthesis is documented in [`docs/design-synthesis.md`](docs/design-synthesis.md).
+
 ## arXiv intake
 
 arXiv supports daily listing subscriptions by email. Its official instructions require a plain-text message sent to the relevant archive, with subject classes added in the message body. See the [official arXiv subscription instructions](https://info.arxiv.org/help/subscribe.html#subscribe-to-daily-listing-emails).

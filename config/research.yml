@@ -9,6 +9,8 @@ arxiv:
     - cs.CL
     - cs.HC
     - cs.GT
+    - cs.SI
+    - cs.LG
   keywords:
     - text world
     - text environment
@@ -20,11 +22,24 @@ arxiv:
     - language agent
     - generative agents
     - theory of mind
+    - text world model
+    - text-based environment
+    - model-based agent
+    - collective behavior
+    - social norm emergence
+    - opinion dynamics
+    - event cascade
+    - agentic inference
+    - role-playing benchmark
   prefer:
     - new environments or interaction protocols
     - multi-agent or population-level behavior
     - long-horizon memory and planning
     - evaluation and reproducibility
+    - executable world state and counterfactual replay
+    - micro-to-macro event formation and feedback
+    - identity-conditioned observation and information boundaries
+    - traces and scheduling for large agent workloads
 
 web_research:
   cadence: daily

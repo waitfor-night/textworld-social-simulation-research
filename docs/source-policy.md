@@ -30,3 +30,7 @@ Posts and threads can reveal early releases, debates, replications, and useful r
 - Store metadata, links, and original summaries; do not mirror paywalled or copyrighted full text.
 - Keep personal email content, private messages, access tokens, and unpublished notes out of the public repository.
 - Do not publish personal information merely because it appeared in a source.
+
+## Design memos versus evidence
+
+Design notes distilled from discussions, prototypes, or shared conversations are hypotheses and engineering choices, not evidence that a claimed mechanism works. Keep them under `docs/` and label them clearly. Promote a claim into `papers/` only after checking the primary source and recording the exact artifact, date, and evidence.
