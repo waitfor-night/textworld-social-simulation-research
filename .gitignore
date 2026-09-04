@@ -1,0 +1,6 @@
+.env
+.env.*
+*.local
+inbox/
+.DS_Store
+Thumbs.db

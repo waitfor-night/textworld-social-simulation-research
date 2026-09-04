@@ -1,0 +1,42 @@
+project: textworld-social-simulation-research
+language: en
+timezone: Asia/Shanghai
+
+arxiv:
+  categories:
+    - cs.AI
+    - cs.MA
+    - cs.CL
+    - cs.HC
+    - cs.GT
+  keywords:
+    - text world
+    - text environment
+    - interactive fiction
+    - social simulation
+    - multi-agent simulation
+    - role-playing agent
+    - persona agent
+    - language agent
+    - generative agents
+    - theory of mind
+  prefer:
+    - new environments or interaction protocols
+    - multi-agent or population-level behavior
+    - long-horizon memory and planning
+    - evaluation and reproducibility
+
+web_research:
+  cadence: daily
+  prioritize:
+    - primary papers and project pages
+    - benchmark and dataset releases
+    - official lab announcements
+    - clearly attributed researcher discussions
+  treat_social_posts_as: discovery_signals
+
+outputs:
+  paper_index: papers/index.csv
+  paper_notes: papers/
+  web_signals: signals/
+  digests: digests/
