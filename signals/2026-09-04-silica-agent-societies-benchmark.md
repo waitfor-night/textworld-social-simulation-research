@@ -1,26 +1,26 @@
 # SILICA: Benchmarking LLM Agent Societies Against Human Behavioural Distributions
 
-- **Source type:** official paper/preprint
-- **Author or organization:** Raad Bin Tareaf
-- **Published on:** 2026-08-28 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2608.28182
-- **Related paper/project:** [SILICA preprint](https://arxiv.org/abs/2608.28182)
-- **Relevance:** core
-- **Confidence:** medium
+- **来源类型：** 官方论文/预印本
+- **作者或组织：** Raad Bin Tareaf
+- **发布于：** 2026-08-28（arXiv v1）
+- **观察日期：** 2026-09-04
+- **规范链接：** https://arxiv.org/abs/2608.28182
+- **相关论文/项目：** [SILICA 预印本](https://arxiv.org/abs/2608.28182)
+- **相关性：** core
+- **置信度：** medium
 
-## What was observed
+## 观察到的内容
 
-SILICA is presented as an open instrument for testing whether agent societies match human behavioural distributions, survive apparatus changes that preserve rules, and show interaction rather than replayed priors. The abstract describes five environments with published human anchors, rule-preserving perturbations, and payoff variants. Across twelve open-weight models, agreement is reported mainly at starting points: eight of eleven models fall within the first-round public-goods equivalence margin, while none match end-state contributions or the human cooperation corridor. Reordering two action labels reportedly reduces one model's cooperation by 58 points.
+SILICA 被呈现为一个开放工具，用于检验智能体社会是否与人类行为分布相匹配、能否在保持规则不变的装置变动中保持稳健，以及是否表现出真实的交互而非重放先验。摘要描述了五个环境，配有已发表的人类参照、保持规则的扰动和收益变体。在十二个开源权重模型中，一致性主要出现在起点处：十一个模型中有八个落在第一轮公共品博弈的等价区间内，但没有一个模型匹配终态贡献或人类合作走廊。据报道，调换两个动作标签的顺序使一个模型的合作率降低了 58 个百分点。
 
-## Evidence and corroboration
+## 证据与佐证
 
-These details come from the dated arXiv record and abstract. The authors also report that only one reasoning-trained model places an acceptance threshold where a fixed incentive requires and that conventions can arise from shared naming priors rather than negotiation. The instrument and results are author-reported in a new preprint; the benchmark's human anchors and perturbation implementation still need independent inspection.
+这些细节来自标注日期的 arXiv 记录和摘要。作者还报告，只有一个经过推理训练的模型将接受阈值设置在固定激励所要求的位置，并且惯例可能源于共享的命名先验而非协商。该工具及其结果是作者在新预印本中报告的；基准测试的人类参照和扰动实现仍需独立核查。
 
-## Why it matters
+## 为什么重要
 
-The certification framing is unusually relevant for social simulation: behavioural plausibility, invariance to presentation, and evidence of genuine interaction are separate validity tests. It cautions against treating a convincing single trajectory or first-round match as population-level realism.
+这种认证式框架对社会模拟来说格外相关：行为合理性、对呈现方式的不变性以及真实交互的证据，是三项相互独立的效度检验。它提醒我们，不要把一条有说服力的单次轨迹或首轮匹配当作群体层面的真实性。
 
-## Follow-up
+## 后续跟进
 
-Inspect the five environments, human reference distributions, and perturbation code. Re-run a small subset with the repository's existing opinion-dynamics tasks and report starting-point, end-state, and order-sensitivity metrics separately.
+检查五个环境、人类参照分布和扰动代码。用仓库中现有的观点动力学任务重跑一个小型子集，并分别报告起点、终态和顺序敏感性指标。

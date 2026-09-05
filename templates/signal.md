@@ -1,26 +1,26 @@
 # {{signal_title}}
 
-- **Source type:** news / official announcement / blog / interview / social post
-- **Author or organization:** {{author_or_org}}
-- **Published on:** {{published_on}}
-- **Observed on:** {{observed_on}}
-- **Canonical URL:** {{canonical_url}}
-- **Related paper/project:** {{related_work}}
-- **Relevance:** `core` / `adjacent` / `signal`
-- **Confidence:** `high` / `medium` / `low`
+- **来源类型（Source type）：** news / official announcement / blog / interview / social post
+- **作者或组织：** {{author_or_org}}
+- **发布于（Published on）：** {{published_on}}
+- **观察日期（Observed on）：** {{observed_on}}
+- **规范链接（Canonical URL）：** {{canonical_url}}
+- **相关论文/项目：** {{related_work}}
+- **相关性（Relevance）：** `core` / `adjacent` / `signal`
+- **置信度（Confidence）：** `high` / `medium` / `low`
 
-## What was observed
+## 观察到的内容
 
 {{observed_claim}}
 
-## Evidence and corroboration
+## 证据与佐证
 
 {{evidence_and_corroboration}}
 
-## Why it matters
+## 为什么重要
 
 {{relevance_and_implications}}
 
-## Follow-up
+## 后续跟进
 
 {{follow_up}}

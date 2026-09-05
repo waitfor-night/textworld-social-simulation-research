@@ -4,3 +4,5 @@
 inbox/
 .DS_Store
 Thumbs.db
+dashboard/.venv/
+__pycache__/

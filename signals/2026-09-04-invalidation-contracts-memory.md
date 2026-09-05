@@ -1,26 +1,26 @@
 # Invalidation Contracts for Cross-Episode Agent Memory
 
-- **Source type:** official paper/preprint
-- **Author or organization:** Michael Wu and Arquimedes Canedo
-- **Published on:** 2026-08-31 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2609.00243
-- **Related paper/project:** [Invalidation Contracts preprint](https://arxiv.org/abs/2609.00243)
-- **Relevance:** adjacent
-- **Confidence:** medium
+- **来源类型:** 官方论文/预印本
+- **作者或组织:** Michael Wu 与 Arquimedes Canedo
+- **发布于:** 2026-08-31（arXiv v1）
+- **观察日期:** 2026-09-04
+- **规范链接:** https://arxiv.org/abs/2609.00243
+- **相关论文/项目:** [失效契约预印本](https://arxiv.org/abs/2609.00243)
+- **相关性:** adjacent
+- **置信度:** medium
 
-## What was observed
+## 观察到的内容
 
-The paper proposes version stamps and cacheability hints for recovery suggestions remembered across episodes, so clients can evict stale entries after server-side drift without discarding valid memory. It separates protocol validity from planner compliance and reports an evaluation across seven models, three serving paths, two domains, and about 9,400 episodes. Row-level invalidation reportedly raises compliance by up to 66.7 percentage points in some settings and recovers 29–33% of baseline token cost for four models, while coarse table-level eviction can destroy useful entries.
+该论文针对跨回合记忆的恢复建议提出了版本戳（version stamp）与可缓存性提示（cacheability hint），使客户端在服务端发生漂移后能够清除过期条目，而不必丢弃仍然有效的记忆。它将协议有效性与规划器遵从性分离开来，并报告了一项覆盖 7 个模型、3 条服务路径、2 个领域、约 9,400 个回合的评估。行级失效在某些设置下据报告可将遵从性提高多达 66.7 个百分点，并为 4 个模型挽回基准 token 成本的 29–33%；而粗粒度的表级清除则可能摧毁有用的条目。
 
-## Evidence and corroboration
+## 证据与佐证
 
-The metrics and protocol description come from the arXiv abstract. The source reports deterministic validity and a 15% response-payload overhead, but no independent implementation or social-world evaluation was found during this scan. The result is most directly about API recovery memory, so transfer to interpersonal facts is an open question.
+指标与协议描述来自 arXiv 摘要。该来源报告了确定性有效性与 15% 的响应负载开销，但本次扫描未发现独立实现或社会世界评估。该结果最直接涉及的是 API 恢复记忆，因此能否迁移到人际事实仍是一个开放问题。
 
-## Why it matters
+## 为什么重要
 
-Cross-episode social memory also goes stale when norms, identities, schedules, or world rules change. Explicit invalidation contracts provide a concrete alternative to either trusting every remembered fact or clearing an entire character memory after drift.
+当规范、身份、日程或世界规则发生变化时，跨回合社会记忆同样会过期。显式的失效契约提供了一种具体的替代方案，既不必相信每条被记住的事实，也不必在漂移后清空角色的全部记忆。
 
-## Follow-up
+## 后续跟进
 
-Model versioned social facts and run controlled drift experiments. Compare row-, relationship-, and episode-level invalidation on correctness, first-try compliance, token cost, and unintended forgetting.
+对带版本的社会事实建模，并进行受控的漂移实验。在正确性、首次尝试遵从率、token 成本与非预期遗忘四个维度上，比较行级、关系级与回合级失效的效果。

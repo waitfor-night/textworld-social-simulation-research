@@ -1,26 +1,26 @@
 # Competitive Market Behavior of LLMs
 
-- **Source type:** official paper/preprint
-- **Author or organization:** Pawel Struski and coauthors
-- **Published on:** 2026-09-02 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2609.02580
-- **Related paper/project:** [Competitive Market Behavior preprint](https://arxiv.org/abs/2609.02580)
-- **Relevance:** core
-- **Confidence:** medium
+- **来源类型：** 官方论文/预印本
+- **作者或组织：** Pawel Struski 及其合著者
+- **发布于：** 2026-09-02（arXiv v1）
+- **观察日期：** 2026-09-04
+- **规范链接：** https://arxiv.org/abs/2609.02580
+- **相关论文/项目：** [Competitive Market Behavior 预印本](https://arxiv.org/abs/2609.02580)
+- **相关性：** core
+- **置信度：** medium
 
-## What was observed
+## 观察到的内容
 
-The authors place LLM agents in a double-auction market and compare the resulting allocation with human-market experiments. They report slower or absent convergence to equilibrium, lower efficiency, and substantial heterogeneity by model family and market role. A lexical analysis associates trade execution with a shift from strategic reasoning toward urgency, and the abstract says the testing framework is publicly released.
+作者将 LLM 智能体置于双向拍卖市场中，并将结果分配与人类市场实验进行比较。他们报告：向均衡的收敛更慢或缺失、效率更低，且不同模型家族与市场角色之间存在显著异质性。一项词法分析将成交执行与从策略性推理转向紧迫性的转变联系起来；摘要称测试框架已公开发布。
 
-## Evidence and corroboration
+## 证据与佐证
 
-The dated arXiv abstract is the primary source for the environment, findings, and framework-release statement. No framework URL was exposed on the abstract page during this scan, and no independent replication was found. The result should therefore be treated as an author-reported benchmark signal rather than a general claim about all economic-agent deployments.
+带日期的 arXiv 摘要是环境、发现与框架发布声明的主要来源。本次扫描期间摘要页面上未暴露框架链接，也未找到独立复现。因此该结果应被视为作者自报的基准信号，而非对所有经济智能体部署的普遍论断。
 
-## Why it matters
+## 为什么重要
 
-Markets provide a compact social environment with explicit incentives, role asymmetry, and aggregate outcomes. The reported gap between plausible individual decisions and population-level efficiency reinforces the need to evaluate both agent trajectories and emergent institutions.
+市场提供了一个紧凑的社会环境，具有明确的激励、角色不对称与聚合结果。所报告的「看似合理的个体决策」与群体层面效率之间的差距，进一步印证了同时评估智能体轨迹与涌现制度的必要性。
 
-## Follow-up
+## 后续跟进
 
-Locate the released framework and pin prompts, model versions, and auction rules. Reproduce convergence and efficiency under paraphrased instructions and compare with other norm- or cooperation-oriented environments in the map.
+找到已发布的框架，固定提示词、模型版本与拍卖规则。在改写后的指令下复现收敛与效率，并与本索引中其他以规范或合作为导向的环境进行对比。

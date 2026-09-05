@@ -1,3 +1,3 @@
-# Digests
+# 研究摘要（Digests）
 
-Store dated review notes here using `YYYY-MM-DD.md`. Each digest should link back to the individual paper and signal records and end with a short list of open questions or next actions.
+在这里按 `YYYY-MM-DD.md` 命名存放带日期的评审笔记。每份摘要应链接回对应的论文和信号记录，并以一份简短的开放问题或下一步行动清单结尾。

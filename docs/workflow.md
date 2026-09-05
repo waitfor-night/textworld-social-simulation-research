@@ -1,57 +1,57 @@
-# Research workflow
+# 研究工作流
 
-## 1. Intake
+## 1. 收录（Intake）
 
-Collect candidate items from:
+从以下来源收集候选条目：
 
-- arXiv daily listings, Atom/API metadata, and author-provided updates;
-- official lab, benchmark, and project pages;
-- reputable reporting about new systems or releases;
-- public posts from researchers and organizations, used as discovery signals.
+- arXiv 每日列表、Atom/API 元数据以及作者提供的更新；
+- 官方实验室、基准测试和项目页面；
+- 关于新系统或发布的可信报道；
+- 研究人员和组织的公开帖子，仅作为发现信号使用。
 
-The structured record should contain the canonical URL, publication or posting date, and the date on which this project observed it.
+结构化记录应包含规范 URL、发布或发帖日期，以及本项目观察它的日期。
 
-## 2. Deduplication
+## 2. 去重（Deduplication）
 
-Prefer identifiers in this order:
+按以下顺序优先使用标识符：
 
-1. arXiv identifier plus version;
-2. DOI;
-3. canonical project or article URL;
-4. title plus first author only as a fallback.
+1. arXiv 标识符加版本号；
+2. DOI；
+3. 规范的项目或文章 URL；
+4. 仅在万不得已时使用标题加第一作者。
 
-When a paper receives a new arXiv version, update the existing record and note what changed instead of creating a duplicate.
+当论文出现新的 arXiv 版本时，更新现有记录并注明变化，而不是创建重复条目。
 
-## 3. Triage
+## 3. 筛选（Triage）
 
-Assign a relevance label from [`TAXONOMY.md`](../TAXONOMY.md), then tag the item by method and research object. Prioritize items that contribute a new environment, interaction protocol, dataset, evaluation, or reproducible system.
+依据 [`TAXONOMY.md`](../TAXONOMY.md) 分配相关性标签，然后按方法和研究对象打标签。优先收录提供了新环境、交互协议、数据集、评估或可复现系统的条目。
 
-## 4. Paper summary
+## 4. 论文摘要
 
-Use [`templates/paper.md`](../templates/paper.md). Separate:
+使用 [`templates/paper.md`](../templates/paper.md)。分开记录：
 
-- bibliographic facts;
-- the authors' stated claims;
-- evidence from experiments or demonstrations;
-- our interpretation and reusable patterns;
-- limitations and open questions.
+- 文献事实；
+- 作者陈述的声称；
+- 来自实验或演示的证据；
+- 我们的解读与可复用模式；
+- 局限性与开放问题。
 
-Do not copy abstracts or paper sections wholesale. Keep quotations short and link to the original.
+不要整段复制摘要或论文章节。引用保持简短，并链接到原文。
 
-## 5. Web signal summary
+## 5. 网络信号摘要
 
-Use [`templates/signal.md`](../templates/signal.md). Record what was actually observed, who published it, and whether a primary source corroborates it. Do not promote a rumor, teaser, or metric screenshot to a research finding without evidence.
+使用 [`templates/signal.md`](../templates/signal.md)。记录实际观察到了什么、谁发布的、是否有原始来源佐证。没有证据时，不要把传闻、预告片或指标截图提升为研究发现。
 
-## 6. Digest
+## 6. 摘要（Digest）
 
-Create one dated Markdown file under `digests/` for each substantial review run. A digest should answer:
+每次实质性的评审运行，在 `digests/` 下创建一个按日期命名的 Markdown 文件。摘要应回答：
 
-- What is genuinely new?
-- Which methods or environments recur across papers?
-- What evaluation patterns are becoming common?
-- Where do claims disagree or remain weakly supported?
-- What should be read, reproduced, or monitored next?
+- 什么是真正的新内容？
+- 哪些方法或环境在多篇论文中反复出现？
+- 哪些评估模式正在变得普遍？
+- 哪些声称相互矛盾或缺乏有力支持？
+- 接下来应该读什么、复现什么或跟踪什么？
 
-## 7. Quality check
+## 7. 质量检查
 
-Before publishing, verify links, dates, author names, arXiv versions, tags, and the distinction between evidence and inference. If a source is inaccessible, mark the record as unverified rather than filling gaps from memory.
+发布前，核验链接、日期、作者姓名、arXiv 版本、标签，以及证据与推断的区分。如果来源无法访问，将记录标记为未核实，而不是凭记忆填补空缺。

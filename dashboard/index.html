@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>研究看板 · textworld-social-simulation-research</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<aside id="sidebar">
+  <div class="brand">研究看板
+    <span class="brand-sub">文本世界 · 社会模拟</span>
+  </div>
+  <nav id="nav">
+    <a href="#/overview" data-nav="overview">总览</a>
+    <a href="#/papers" data-nav="papers">论文</a>
+    <a href="#/signals" data-nav="signals">信号</a>
+    <a href="#/digests" data-nav="digests">研究摘要</a>
+    <a href="#/docs" data-nav="docs">文档</a>
+  </nav>
+  <div class="sidebar-foot">数据实时读取自仓库目录</div>
+</aside>
+<div id="main">
+  <header id="topbar">
+    <input id="search" type="search" autocomplete="off"
+           placeholder="全文搜索（论文 / 信号 / 摘要 / 文档）…">
+    <button id="theme" type="button" title="切换深浅主题">主题</button>
+  </header>
+  <main id="content"></main>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>
