@@ -1,56 +1,56 @@
 # TextWorld / Social Simulation Research Radar
 
-一个面向 text world models、text environments、社会模拟和 role-playing agents 的公开研究索引。
+一个面向文本世界模型（text world models）、文本环境（text environments）、社会模拟（social simulation）和角色扮演智能体（role-playing agents）的公开研究索引。
 
-This repository collects papers, benchmarks, environments, agent architectures, and research signals around:
+本仓库收集以下主题的论文、基准测试、环境、智能体架构与研究信号：
 
-- text world models and language-based environments;
-- social and multi-agent simulation;
-- role-playing, persona, and character agents;
-- planning, memory, tool use, and long-horizon interaction;
-- evaluation, datasets, and safety.
+- 文本世界模型与基于语言的环境；
+- 社会与多智能体模拟；
+- 角色扮演、人格（persona）与角色智能体；
+- 规划、记忆、工具使用与长程交互；
+- 评估、数据集与安全性。
 
-## What lives here
+## 这里有什么
 
-The repository separates durable research evidence from fast-moving signals:
+本仓库将持久的研究证据与快速变化的信号分开存放：
 
-- `papers/` — structured paper records and the paper index;
-- `digests/` — dated summaries of the most important papers and trends;
-- `signals/` — news, lab announcements, blog posts, and social-media signals;
-- `templates/` — reusable formats for consistent notes;
-- `config/` — topic filters and research configuration;
-- `docs/` — workflow, taxonomy, and source policy.
+- `papers/` — 结构化论文记录与论文索引；
+- `digests/` — 按日期组织的重要论文与趋势摘要；
+- `signals/` — 新闻、实验室公告、博客文章与社交媒体信号；
+- `templates/` — 可复用的笔记格式模板；
+- `config/` — 主题过滤器与研究配置；
+- `docs/` — 工作流、分类体系与来源政策。
 
-## Editorial principles
+## 编辑原则
 
-1. Every record has a source URL and an observation date.
-2. Bibliographic facts, author claims, and our interpretation are kept separate.
-3. A social-media post is treated as a lead or signal until a primary source supports it.
-4. Summaries are concise and original; this repository links to papers instead of redistributing copyrighted full text.
-5. Negative results, limitations, missing baselines, and evaluation gaps are recorded explicitly.
+1. 每条记录都带有来源 URL 和观察日期。
+2. 文献事实、作者声称与我们的解读分开记录。
+3. 社交媒体帖子只作为线索或信号，直到有原始来源支持为止。
+4. 摘要是简洁的原创内容；本仓库链接到论文原文，而不转载受版权保护的全文。
+5. 负面结果、局限性、缺失的基线以及评估缺口都会被明确记录。
 
-## Workflow
+## 工作流
 
-The intended loop is:
+预期的工作循环是：
 
-1. discover candidates through arXiv listings/API/RSS and web research;
-2. deduplicate by arXiv identifier, DOI, or canonical URL;
-3. triage by relevance using [`TAXONOMY.md`](TAXONOMY.md);
-4. write a structured paper or signal record;
-5. publish a dated digest with citations and confidence labels.
+1. 通过 arXiv 列表/API/RSS 与网络调研发现候选条目；
+2. 按 arXiv 标识符、DOI 或规范 URL 去重；
+3. 依据 [`TAXONOMY.md`](TAXONOMY.md) 按相关性筛选；
+4. 撰写结构化的论文或信号记录；
+5. 发布带引用和置信度标签的日期摘要。
 
-See [`docs/workflow.md`](docs/workflow.md) and [`docs/source-policy.md`](docs/source-policy.md).
+参见 [`docs/workflow.md`](docs/workflow.md) 与 [`docs/source-policy.md`](docs/source-policy.md)。
 
-The current architecture and research-design synthesis is documented in [`docs/design-synthesis.md`](docs/design-synthesis.md).
+当前的架构与研究设计综合文档见 [`docs/design-synthesis.md`](docs/design-synthesis.md)。
 
-The latest research-intake digest is [`digests/2026-09-06.md`](digests/2026-09-06.md). The previous literature and product snapshot is [`digests/2026-09-04-literature-product-snapshot.md`](digests/2026-09-04-literature-product-snapshot.md), with the corresponding product comparison in [`signals/2026-09-04-roleplay-product-landscape.md`](signals/2026-09-04-roleplay-product-landscape.md).
+最新的研究收录摘要见 [`digests/2026-09-06.md`](digests/2026-09-06.md)。此前的文献与产品快照见 [`digests/2026-09-04-literature-product-snapshot.md`](digests/2026-09-04-literature-product-snapshot.md)，对应的产品对比见 [`signals/2026-09-04-roleplay-product-landscape.md`](signals/2026-09-04-roleplay-product-landscape.md)。
 
-## arXiv intake
+## arXiv 收录
 
-arXiv supports daily listing subscriptions by email. Its official instructions require a plain-text message sent to the relevant archive, with subject classes added in the message body. See the [official arXiv subscription instructions](https://info.arxiv.org/help/subscribe.html#subscribe-to-daily-listing-emails).
+arXiv 支持通过邮件订阅每日论文列表。其官方说明要求向相应分类发送纯文本邮件，并在邮件正文中加入学科分类。参见 [arXiv 官方订阅说明](https://info.arxiv.org/help/subscribe.html#subscribe-to-daily-listing-emails)。
 
-For reproducible automation, this project also uses arXiv's public metadata feeds/API as the structured intake layer. Email is a useful alert channel; the repository stores normalized metadata and links rather than raw mailbox content.
+为了实现可复现的自动化，本项目同时使用 arXiv 公开的元数据源/API 作为结构化的收录层。邮件是有用的提醒渠道；本仓库只存储规范化后的元数据和链接，不存储原始邮箱内容。
 
-## Status
+## 状态
 
-This is an actively maintained research map. Early entries may be incomplete; corrections and additions are welcome through issues or pull requests.
+这是一份持续维护的研究地图。早期条目可能不完整；欢迎通过 issue 或 pull request 提出修正和补充。

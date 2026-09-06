@@ -1,26 +1,26 @@
 # Towards a Belief-Based World Model for LLM Agents
 
-- **Source type:** official paper/preprint
-- **Author or organization:** Shubham Kumar, Harshit Kumar, Narendra Ahuja, and Saurabh Jha
-- **Published on:** 2026-08-31 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2609.00455
-- **Related paper/project:** [BB-WM preprint](https://arxiv.org/abs/2609.00455); [reproduction code](https://github.com/skumar-ml/belief-world-models)
-- **Relevance:** core
-- **Confidence:** medium
+- **来源类型：** 官方论文/预印本
+- **作者或组织：** Shubham Kumar、Harshit Kumar、Narendra Ahuja 与 Saurabh Jha
+- **发布于：** 2026-08-31（arXiv v1）
+- **观察日期：** 2026-09-04
+- **规范链接：** https://arxiv.org/abs/2609.00455
+- **相关论文/项目：** [BB-WM 预印本](https://arxiv.org/abs/2609.00455)；[复现代码](https://github.com/skumar-ml/belief-world-models)
+- **相关性：** core
+- **置信度：** medium
 
-## What was observed
+## 观察到的内容
 
-The paper argues that a simulator-only world-model interface is incomplete under partial observability because it does not tell an agent what is known versus uncertain about the current state. Its Belief-Based World Model (BB-WM) maintains an explicit belief that a language policy can query, alongside action simulation. The authors report improved task performance when agents receive belief access, while retaining complementarity with simulation-based world models.
+该论文认为，在部分可观测性条件下，仅含模拟器的世界模型接口是不完整的，因为它无法告知智能体关于当前状态哪些已知、哪些不确定。其信念世界模型（Belief-Based World Model, BB-WM）在动作模拟之外维护一个语言策略可以查询的显式信念。作者报告，智能体获得信念访问权后任务表现有所提升，同时与基于模拟的世界模型保持互补。
 
-## Evidence and corroboration
+## 证据与佐证
 
-The arXiv abstract is corroborated by the linked public repository, which exposes experiments on ALFWorld and ScienceWorld and separates belief, action-validity, and combined conditions. The empirical result is still a single preprint claim; the repository's reproducibility setup includes model and environment dependencies that should be pinned before comparison.
+arXiv 摘要得到了所链接公开仓库的佐证；该仓库公开了在 ALFWorld 与 ScienceWorld 上的实验，并区分信念、动作有效性与组合条件。实证结果仍只是单一预印本的结论；该仓库的可复现设置包含模型与环境依赖，比较前应予以固定（pin）。
 
-## Why it matters
+## 为什么重要
 
-Social text worlds routinely hide other agents' intentions, delayed effects, and private state. A first-class belief projection gives the map a concrete way to represent uncertainty instead of forcing the narrative generator to collapse unknown facts into prose.
+社会文本世界通常会隐藏其他智能体的意图、延迟效应与私有状态。一等公民的信念投影（belief projection）为索引提供了一种表示不确定性的具体方式，而不必迫使叙事生成器把未知事实压平成散文。
 
-## Follow-up
+## 后续跟进
 
-Run the smallest public evaluation and inspect how beliefs are represented and queried. Adapt the interface to private beliefs and uncertain social facts, then measure calibration, action quality, and information leakage separately.
+运行最小的公开评估，检视信念如何被表示与查询。将该接口适配到私有信念与不确定的社会事实，然后分别测量校准、动作质量与信息泄露。

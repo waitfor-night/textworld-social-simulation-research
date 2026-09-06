@@ -1,26 +1,26 @@
 # Social World Model Agentic Simulation: Open Prototype
 
-- **Source type:** official repository
-- **Author or organization:** Marco Patzelt
-- **Published on:** Not stated; no dated release was visible during the scan
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://github.com/marcopatzelt/social-agent-sim
-- **Related paper/project:** [social-agent-sim repository](https://github.com/marcopatzelt/social-agent-sim)
-- **Relevance:** signal
-- **Confidence:** low
+- **来源类型:** 官方仓库
+- **作者或组织:** Marco Patzelt
+- **发布于:** 未注明；扫描期间未见带日期的发布记录
+- **观察日期:** 2026-09-04
+- **规范链接:** https://github.com/marcopatzelt/social-agent-sim
+- **相关论文/项目:** [social-agent-sim 仓库](https://github.com/marcopatzelt/social-agent-sim)
+- **相关性:** signal
+- **置信度:** low
 
-## What was observed
+## 观察到的内容
 
-The public repository describes six LLM agents living in a Berlin apartment building. Agents receive short identity seeds rather than explicit personality or goal instructions; a deterministic engine supplies time, hunger and fatigue, locations, opening hours, sound propagation, acquaintance gating, phone constraints, finances, and memory compression. Each simulated hour the engine builds a perception, calls an agent, validates JSON actions against world state, updates memory and relationships, and writes a tick log.
+该公开仓库描述了生活在柏林一栋公寓楼里的六个大语言模型智能体。智能体只接收简短的初始身份设定（identity seed），而非明确的人格或目标指令；一个确定性引擎提供时间、饥饿与疲劳、位置、营业时间、声音传播、熟人门槛、电话限制、财务与记忆压缩。每个模拟小时，引擎都会构建一次感知、调用一个智能体、依据世界状态校验 JSON 动作、更新记忆与关系，并写入一条 tick 日志。
 
-## Evidence and corroboration
+## 证据与佐证
 
-These details are stated in the repository README, which is the primary artifact. The page did not expose a dated release or independent run report during this scan, so the existence of the design is more certain than any claim that its behaviour is emergent or realistic. No personal contact information from the page is reproduced here.
+这些细节在仓库的 README 中有说明，README 是主要载体。本次扫描期间，页面未显示带日期的发布记录或独立运行报告，因此该设计的存在比其行为是涌现的或真实的这一说法更加确定。此处不转载页面上的任何个人联系信息。
 
-## Why it matters
+## 为什么重要
 
-The prototype is a concrete example of separating an authoritative environment from an LLM policy and of using constraints to induce social behaviour. Its perception builder, acquaintance gating, and compressed per-agent memory are directly comparable to the primitives tracked in this map.
+该原型是一个具体示例，展示了如何将权威性环境与大语言模型策略分离，以及如何用约束来引导社会行为。其感知构建器、熟人门槛与逐智能体的压缩记忆，与本索引所跟踪的原语直接可比。
 
-## Follow-up
+## 后续跟进
 
-Pin a commit and run the smallest scenario without adding hidden prompts. Inspect logs for reproducibility, leakage between agents, and whether the claimed behaviour survives seed and model changes; record licensing and data provenance before reuse.
+固定某个提交（pin a commit），在不添加隐藏提示词的情况下运行最小场景。检查日志的可复现性、智能体之间的信息泄漏，以及所声称的行为在更换初始种子与模型后是否仍然成立；在复用之前记录许可协议与数据来源。

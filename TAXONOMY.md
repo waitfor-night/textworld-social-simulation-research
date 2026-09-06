@@ -1,38 +1,38 @@
-# Research taxonomy
+# 研究分类体系
 
-Use one primary tag and any number of secondary tags. A paper can be adjacent without being central; record that distinction in the relevance field.
+每条记录使用一个主领域标签和任意数量的次要标签。一篇论文可以只是相邻（adjacent）而非核心（central），这一区别记录在相关性字段中。
 
-## Primary areas
+## 主领域
 
-| ID | Area | Typical questions |
+| ID | 领域 | 典型问题 |
 | --- | --- | --- |
-| `TWM` | Text world models | Can a model predict, simulate, or learn the dynamics of a text-described world? |
-| `ENV` | Text environments | How are interactive fiction, games, tool worlds, and text-based tasks specified and evaluated? |
-| `SIM` | Social simulation | How are populations, institutions, groups, norms, and emergent behavior represented? |
-| `MAS` | Multi-agent systems | How do multiple language agents coordinate, compete, communicate, and form conventions? |
-| `RPL` | Role-playing and persona | How are identity, character, goals, memory, dialogue style, and consistency modeled? |
-| `AGT` | Agent architecture | What roles do planning, memory, reflection, tools, self-play, and long-horizon control play? |
-| `EVAL` | Evaluation | What is measured, by whom, under which interaction protocol, and with what failure analysis? |
-| `DATA` | Data and trajectories | What interaction traces, synthetic worlds, human behavior data, or curricula are used? |
-| `SAFE` | Safety and validity | What prevents deceptive, harmful, stereotyped, unstable, or non-reproducible simulations? |
+| `TWM` | 文本世界模型 | 模型能否预测、模拟或学习文本所描述世界的动力学？ |
+| `ENV` | 文本环境 | 互动小说、游戏、工具世界和基于文本的任务如何被定义与评估？ |
+| `SIM` | 社会模拟 | 群体、制度、组织、规范和涌现行为如何被表示？ |
+| `MAS` | 多智能体系统 | 多个语言智能体如何协调、竞争、交流并形成约定（conventions）？ |
+| `RPL` | 角色扮演与人格 | 身份、角色、目标、记忆、对话风格和一致性如何建模？ |
+| `AGT` | 智能体架构 | 规划、记忆、反思、工具、自我博弈与长程控制扮演什么角色？ |
+| `EVAL` | 评估 | 测量什么、由谁测量、在何种交互协议下测量、有怎样的失败分析？ |
+| `DATA` | 数据与轨迹 | 使用了哪些交互轨迹、合成世界、人类行为数据或课程？ |
+| `SAFE` | 安全与有效性 | 什么机制防止欺骗性、有害、刻板化、不稳定或不可复现的模拟？ |
 
-## Secondary tags
+## 次要标签
 
-`planning`, `memory`, `retrieval`, `reflection`, `tool-use`, `self-play`, `self-consistency`, `grounding`, `long-horizon`, `embodiment`, `interactive-fiction`, `games`, `economics`, `institutions`, `norms`, `culture`, `theory-of-mind`, `emotion`, `identity`, `alignment`, `benchmark`, `human-eval`, `llm-as-judge`, `reproducibility`, `open-source`.
+`planning`（规划）、`memory`（记忆）、`retrieval`（检索）、`reflection`（反思）、`tool-use`（工具使用）、`self-play`（自我博弈）、`self-consistency`（自一致性）、`grounding`（依据事实）、`long-horizon`（长程）、`embodiment`（具身）、`interactive-fiction`（互动小说）、`games`（游戏）、`economics`（经济学）、`institutions`（制度）、`norms`（规范）、`culture`（文化）、`theory-of-mind`（心智理论）、`emotion`（情感）、`identity`（身份）、`alignment`（对齐）、`benchmark`（基准测试）、`human-eval`（人工评估）、`llm-as-judge`（大模型评判）、`reproducibility`（可复现性）、`open-source`（开源）。
 
-## Relevance labels
+## 相关性标签
 
-- `core` — directly studies text worlds, social simulation, role-playing, or their evaluation;
-- `adjacent` — provides a transferable method, benchmark, or theory;
-- `background` — useful context but not a near-term research input;
-- `signal` — an unverified or early lead that needs follow-up.
+- `core` — 直接研究文本世界、社会模拟、角色扮演或其评估；
+- `adjacent` — 提供可迁移的方法、基准测试或理论；
+- `background` — 有用的背景，但不是近期研究输入；
+- `signal` — 未经证实或尚早的线索，需要跟进。
 
-## Triage questions
+## 筛选问题
 
-For each candidate, answer:
+对每个候选条目回答：
 
-1. What world, environment, population, or interaction protocol is being modeled?
-2. What are the agents' observations, actions, goals, memory, and communication channels?
-3. Is the claimed behavior measured at the individual, pair, group, or population level?
-4. Which findings are causal or experimentally supported, and which are qualitative demonstrations?
-5. What is reusable: representation, environment, dataset, evaluation, or implementation pattern?
+1. 建模的是什么世界、环境、群体或交互协议？
+2. 智能体的观察、动作、目标、记忆和通信渠道是什么？
+3. 所声称的行为是在个体、成对、群体还是群体级别上测量的？
+4. 哪些发现是因果的或经过实验支持的，哪些只是定性演示？
+5. 什么是可复用的：表示、环境、数据集、评估还是实现模式？

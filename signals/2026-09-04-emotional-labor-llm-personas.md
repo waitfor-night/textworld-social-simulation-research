@@ -1,26 +1,26 @@
 # Emotional Labor Strategy Preferences in LLM Personas
 
-- **Source type:** official paper/preprint
-- **Author or organization:** Mohammad Saim and Tianyu Jiang
-- **Published on:** 2026-08-31 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2609.00310
-- **Related paper/project:** [Emotional Labor Strategy preprint](https://arxiv.org/abs/2609.00310)
-- **Relevance:** core
-- **Confidence:** medium
+- **来源类型:** 官方论文/预印本
+- **作者或组织:** Mohammad Saim 与 Tianyu Jiang
+- **发布于:** 2026-08-31（arXiv v1）
+- **观察日期:** 2026-09-04
+- **规范链接:** https://arxiv.org/abs/2609.00310
+- **相关论文/项目:** [情绪劳动策略预印本](https://arxiv.org/abs/2609.00310)
+- **相关性:** core
+- **置信度:** medium
 
-## What was observed
+## 观察到的内容
 
-The authors introduce a dataset of 500 socially situated events, each offering surface acting, deep acting, or genuine expression, and evaluate 50 fictional-character personas with five LLMs. They report that models prefer deep acting overall, that Conscientiousness and Emotional Stability predict this preference, and that persona conditioning reliably changes outputs with variation by model and emotion.
+作者引入了一个包含 500 个社会情境事件的数据集，每个事件提供表层表演（surface acting）、深层表演（deep acting）或真实表达三种选择，并用五个大语言模型评估了 50 个虚构角色人格。他们报告称：模型总体上偏好深层表演；尽责性（Conscientiousness）与情绪稳定性（Emotional Stability）可以预测这一偏好；人格条件化能够可靠地改变输出，且随模型与情绪的不同而变化。
 
-## Evidence and corroboration
+## 证据与佐证
 
-The dated arXiv abstract is the primary evidence and identifies the two persona-profiling tracks (observer-rated composites and in-character self-report). It does not provide an independent behavioural dataset or a public implementation link on the abstract page. Findings should be treated as author-reported and checked for character-selection and prompt-encoding effects.
+带有日期的 arXiv 摘要是一手证据，并指明了两条人格画像路径（观察者评分的综合指标与角色内自述）。摘要页面未提供独立的行为数据集或公开实现链接。这些发现应视为作者报告的结果，并需检查角色选择与提示词编码带来的效应。
 
-## Why it matters
+## 为什么重要
 
-Persona agents need more than a stable voice: social strategies can vary with traits, context, and the target emotion. The three-choice setup offers a compact way to test whether a simulated character's social behaviour is consistent without equating stylistic imitation with psychological validity.
+人格智能体需要的不仅仅是稳定的语气：社会策略会随特质、情境与目标情绪而变化。这种三选一的设置提供了一种紧凑的方式，用于检验模拟角色的社会行为是否一致，而不必将风格模仿等同于心理学效度。
 
-## Follow-up
+## 后续跟进
 
-Inspect the full annotation and prompting protocol, then test the choices with non-fictional and culturally varied scenarios. Report uncertainty and stereotype risks rather than treating trait-to-strategy associations as universal.
+检查完整的标注与提示词协议，然后在非虚构且文化多样的场景中测试这些选择。报告不确定性与刻板印象风险，而不是将特质-策略关联视为普遍规律。

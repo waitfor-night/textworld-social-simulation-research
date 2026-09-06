@@ -1,26 +1,26 @@
 # Environment Evolution for Terminal Agents
 
-- **Source type:** official paper/preprint
-- **Author or organization:** Zhiyuan Fan and coauthors
-- **Published on:** 2026-09-03 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2609.04128
-- **Related paper/project:** [Environment Evolution preprint](https://arxiv.org/abs/2609.04128)
-- **Relevance:** core
-- **Confidence:** medium
+- **来源类型：** 官方论文/预印本
+- **作者或组织：** Zhiyuan Fan 及合著者
+- **发布于：** 2026-09-03（arXiv v1）
+- **观察日期：** 2026-09-04
+- **规范链接：** https://arxiv.org/abs/2609.04128
+- **相关论文/项目：** [Environment Evolution 预印本](https://arxiv.org/abs/2609.04128)
+- **相关性：** core
+- **置信度：** medium
 
-## What was observed
+## 观察到的内容
 
-The paper proposes off-policy environment evolution for terminal agents: a multi-agent harness incrementally raises environment difficulty and schedules generations during training. The authors report that rollouts with several frontier models produce harder environments and that long-horizon reinforcement learning on two Qwen models improves Terminal-Bench 2.1 by 14.4 and 18.0 percentage points.
+该论文提出面向终端智能体（terminal agents）的离策略（off-policy）环境进化：一个多智能体框架（harness）在训练过程中逐步提高环境难度并调度各代环境。作者报告，使用多个前沿模型进行的推演（rollout）产生了更困难的环境，且对两个 Qwen 模型进行长程强化学习后，Terminal-Bench 2.1 成绩分别提升 14.4 与 18.0 个百分点。
 
-## Evidence and corroboration
+## 证据与佐证
 
-The claims and model names come from the 2026-09-03 arXiv abstract. The source describes three evolution directions derived from the multi-turn learning objective, but the scan did not find a separate code or benchmark release. The gains are consequently author-reported and should be checked for contamination, prompt overlap, and changing benchmark versions.
+这些结论与模型名称来自 2026-09-03 的 arXiv 摘要。该来源描述了从多轮学习目标推导出的三个进化方向，但本次扫描未发现单独的代码或基准测试发布。因此这些提升均为作者自报，应检查数据污染、提示重叠与基准测试版本变更等问题。
 
-## Why it matters
+## 为什么重要
 
-Text environments often become trivial as agents improve. An off-policy curriculum is a promising way to keep a social or interactive-fiction world at the frontier of difficulty without silently changing the task rules between evaluations.
+文本环境往往会随智能体的改进而变得过于简单。离策略课程（curriculum）是一种有前景的方式，可在不悄然改变任务规则的前提下，让社会或互动小说（interactive fiction）世界始终处于难度前沿。
 
-## Follow-up
+## 后续跟进
 
-Read the generation and scheduling algorithm in full, then reproduce a small Terminal-Bench slice with fixed seeds. Test whether the same curriculum principle can increase social-world difficulty while preserving a stable evaluation distribution.
+完整阅读生成与调度算法，然后用固定随机种子复现一小块 Terminal-Bench。检验同一课程原则能否在保持稳定评估分布的同时提高社会世界的难度。

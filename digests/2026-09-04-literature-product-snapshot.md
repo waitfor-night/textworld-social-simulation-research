@@ -1,66 +1,66 @@
-# Literature and Product Snapshot: Text Worlds, Social Simulation, and Role-playing
+# 文献与产品快照：文本世界、社会模拟与角色扮演
 
-- **Date:** 2026-09-04
-- **Scope:** Recent arXiv work and official product/repository documentation
-- **Method:** Primary-source scan; abstracts and official documentation were recorded without mirroring full text. This is a triage snapshot, not a systematic literature review.
+- **日期：** 2026-09-04
+- **范围：** 近期 arXiv 工作与官方产品/仓库文档
+- **方法：** 原始来源扫描；记录摘要和官方文档，不镜像全文。这是一份筛选快照，而非系统性文献综述。
 
-## Executive summary
+## 执行摘要
 
-The current landscape is converging on a layered view of social text environments. Text world model work formalizes the environment as a transition process; social simulation work supplies mechanisms and aggregate phenomena; role-playing systems supply practical interfaces for identity, memory, group conversation, and branching. The open gap is a reproducible system that makes authority, visibility, beliefs, events, and replay explicit at the same time.
+当前格局正汇聚到一个关于社会文本环境的分层视图上。文本世界模型工作将环境形式化为转移过程；社会模拟工作提供机制和聚合现象；角色扮演系统提供身份、记忆、群聊和分支的实用接口。尚存的缺口是：一个可复现的系统，能同时把权威、可见性、信念、事件和重放变得显式。
 
-## 1. Text world models are becoming an explicit transition layer
+## 1. 文本世界模型正在成为显式的转移层
 
-[Bridging the Agent-World Gap](../papers/2606.09032.md) is a useful anchor: a text world model predicts how a textual state changes after an action in web, terminal, API, or dialogue environments. This framing prevents a common category error in which agent fluency is treated as evidence that the environment model is correct.
+[Bridging the Agent-World Gap](../papers/2606.09032.md) 是一个有用的锚点：文本世界模型预测文本状态在动作之后如何变化，适用于网页、终端、API 或对话环境。这个框架防止了一类常见的范畴错误——把智能体的流畅性当作环境模型正确的证据。
 
-[WorldMind](../papers/2608.21439.md) is adjacent rather than text-native, but its four-way separation—state understanding, decision, temporal control, and outcome generation—supports the same architectural direction. For this repository, the transferable rule is: do not let the narrative renderer become the authority on world state.
+[WorldMind](../papers/2608.21439.md) 是相邻的而非文本原生的，但它的四重分离——状态理解、决策、时间控制和结果生成——支持相同的架构方向。对本仓库而言，可迁移的规则是：不要让叙事渲染器成为世界状态的权威。
 
-## 2. Social simulation is splitting into complementary research objects
+## 2. 社会模拟正在分裂为互补的研究对象
 
-- **Long-horizon individual life:** [Agentopia](../papers/2606.07513.md) uses a persistent society with 100 agents and 10 simulated years, and reports downstream role-playing gains from simulated experience.
-- **Micro-to-macro explanation:** [CAMO](../papers/2604.14691.md) turns simulation records into factors, causal structure, and counterfactual probes around a macro target.
-- **Attitude and opinion diffusion:** [LLM-Agent-based Social Simulation for Attitude Diffusion](../papers/2604.03898.md) combines multidimensional beliefs, a small-world network, and external news/event timelines; [Towards Simulating Social Influence Dynamics](../papers/2507.22467.md) studies conformity, polarization, and fragmentation under controlled influence scenarios.
-- **Human-grounded opinion evaluation:** [DEBATE](../papers/2510.25110.md) evaluates both public messages and private stance trajectories against human discussion groups, making group dynamics measurable rather than purely anecdotal.
-- **Large-scale interventions:** [AgentSociety](../papers/2502.08691.md) reports more than 10,000 agents and 5 million interactions across several social and urban scenarios.
-- **Norms:** [CRSEC](../papers/2403.08251.md) makes social norms explicit through creation/representation, spreading, evaluation, and compliance.
-- **Methodological caution:** [Integrating LLM in Agent-Based Social Simulation](../papers/2507.19364.md) emphasizes that plausible language and operational usefulness do not automatically establish explanatory or predictive validity.
+- **长程个体生活：** [Agentopia](../papers/2606.07513.md) 使用一个有 100 个智能体、模拟 10 年的持久社会，并报告模拟经验带来下游角色扮演增益。
+- **微观到宏观的解释：** [CAMO](../papers/2604.14691.md) 围绕一个宏观目标，将模拟记录转化为因子、因果结构和反事实探针。
+- **态度与意见扩散：** [LLM-Agent-based Social Simulation for Attitude Diffusion](../papers/2604.03898.md) 结合多维信念、小世界网络和外部新闻/事件时间线；[Towards Simulating Social Influence Dynamics](../papers/2507.22467.md) 在受控影响场景下研究从众、极化和分裂。
+- **以人为锚的意见评估：** [DEBATE](../papers/2510.25110.md) 对照人类讨论组评估公开消息和私下的立场轨迹，使群体动态可测量，而非纯轶事。
+- **大规模干预：** [AgentSociety](../papers/2502.08691.md) 报告了跨多个社会和城市场景的超过 10,000 个智能体和 500 万次交互。
+- **规范：** [CRSEC](../papers/2403.08251.md) 通过创建/表示、传播、评估和遵守，使社会规范变得显式。
+- **方法上的告诫：** [Integrating LLM in Agent-Based Social Simulation](../papers/2507.19364.md) 强调，语言合理和操作上有用并不自动建立解释或预测有效性。
 
-The implication is that one universal “social realism” score will be misleading. The map should keep separate evaluation tracks for trajectory fidelity, aggregate outcomes, causal mechanisms, rule compliance, and narrative quality.
+其含义是：一个通用的「社会真实感」分数会产生误导。地图应为轨迹保真度、聚合结果、因果机制、规则遵守和叙事质量保留分离的评估轨道。
 
-## 3. Products already expose most interface primitives
+## 3. 产品已经暴露了大多数接口原语
 
-The [role-playing product landscape](../signals/2026-09-04-roleplay-product-landscape.md) shows recurring implementations of:
+[角色扮演产品格局](../signals/2026-09-04-roleplay-product-landscape.md) 显示了反复出现的实现：
 
-- first-class personas and participants;
-- NPC–NPC group interaction;
-- manual or automatic speaker selection;
-- public history versus private character context;
-- memory compression and retrieval;
-- branching timelines and replay;
-- an engine-owned state loop in open-source systems.
+- 一等的人格与参与者；
+- NPC–NPC 群体交互；
+- 手动或自动的说话人选择；
+- 公开历史与私密角色上下文；
+- 记忆压缩与检索；
+- 分支时间线与重放；
+- 开源系统中由引擎拥有的状态循环。
 
-The strongest design lesson is to make the player just another participant. A human should enter through the same action and observation interfaces as an AI agent, with explicit permissions for what is public, private, delayed, or hidden.
+最强的设计教训是把玩家当作又一个参与者。人类应通过与 AI 智能体相同的动作和观察接口进入，并对什么是公开的、私密的、延迟的或隐藏的拥有显式权限。
 
-## 4. Common gap across papers and products
+## 4. 论文与产品之间的共同缺口
 
-The following matrix is a useful working hypothesis for the next implementation cycle:
+以下矩阵是下一轮实现周期的一个有用工作假设：
 
-| Layer | Existing evidence | Remaining gap |
+| 层 | 现有证据 | 剩余缺口 |
 |---|---|---|
-| World state | Text-world transitions, game state, engine-owned state | A shared schema for social facts, beliefs, norms, inventory/resources, and uncertainty |
-| Projection | Personas, character cards, memory retrieval | Formal visibility/authority rules and auditable observation traces |
-| Agent behavior | Role-playing, NPC decisions, social influence | Stable identity and policy comparisons under controlled state |
-| Diffusion | Opinion dynamics and external shocks | Reproducible exposure scheduling and network interventions |
-| Event semantics | RPG event/state checks and product branches | Event sourcing with causal parents, delayed effects, and replay |
-| Evaluation | Human trajectories, mechanics checks, causal probes | A small benchmark suite that evaluates all layers without conflating them |
+| 世界状态 | 文本世界转移、游戏状态、引擎拥有的状态 | 社会事实、信念、规范、库存/资源和不确定性的共享模式 |
+| 投影 | 人格、角色卡、记忆检索 | 形式化的可见性/权威规则和可审计的观察轨迹 |
+| 智能体行为 | 角色扮演、NPC 决策、社会影响 | 受控状态下的稳定身份与策略对比 |
+| 扩散 | 意见动态和外部冲击 | 可复现的曝光调度和网络干预 |
+| 事件语义 | RPG 事件/状态检查和产品分支 | 带因果父节点、延迟效果和重放的事件溯源 |
+| 评估 | 人类轨迹、机制检查、因果探针 | 一个小型基准套件，评估所有层而不混淆它们 |
 
-## Recommended next experiments
+## 建议的下一步实验
 
-1. Implement a minimal 20–50-agent text society with structured state, public/private observations, event-sourced updates, and deterministic seeds.
-2. Reproduce one opinion-dynamics task inspired by DEBATE and one rule-consistency task inspired by RPGBENCH.
-3. Add a product-style group chat mode with automatic speaker scheduling and compare it against user-triggered turns.
-4. Log every projection, observation, action proposal, accepted event, belief update, memory write, and rendered message.
-5. Use CAMO-style factor extraction and counterfactual replay to test whether an observed macro pattern survives intervention.
+1. 实现一个最小化的 20–50 智能体文本社会：结构化状态、公开/私有观察、事件溯源更新和确定性种子。
+2. 复现一个受 DEBATE 启发的意见动态任务，以及一个受 RPGBENCH 启发的规则一致性任务。
+3. 添加一个产品风格的群聊模式，带自动说话人调度，并与用户触发的轮次对比。
+4. 记录每一次投影、观察、动作提案、被接受的事件、信念更新、记忆写入和渲染出的消息。
+5. 使用 CAMO 式的因子提取和反事实重放，检验观察到的宏观模式在干预下是否依然成立。
 
-## Source notes
+## 来源说明
 
-The paper records in [`papers/`](../papers/) link to canonical arXiv pages and identify author-reported claims as such. The product note links to official documentation or repositories. Because several entries are preprints or evolving products, version, implementation, and evaluation details should be refreshed before a formal survey or citation-heavy publication.
+[`papers/`](../papers/) 中的论文记录链接到规范 arXiv 页面，并标明哪些是作者报告的声称。产品笔记链接到官方文档或仓库。由于若干条目是预印本或仍在演进的产品，在正式综述或引用密集的发表之前，应刷新版本、实现和评估细节。

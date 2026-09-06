@@ -1,26 +1,26 @@
 # trajectory-judge: What Outcome-Only LLM Judges Miss on Agent Trajectories
 
-- **Source type:** official paper/preprint and official repository
-- **Author or organization:** Hadi Mohammadi
-- **Published on:** 2026-08-29 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2609.00038
-- **Related paper/project:** [trajectory-judge preprint](https://arxiv.org/abs/2609.00038); [reproducible environment and verdicts](https://github.com/mohammadi-hadi/trajectory-judge)
-- **Relevance:** core
-- **Confidence:** medium
+- **来源类型：** 官方论文/预印本及官方仓库
+- **作者或组织：** Hadi Mohammadi
+- **发布于：** 2026-08-29（arXiv v1）
+- **观察日期：** 2026-09-04
+- **规范链接：** https://arxiv.org/abs/2609.00038
+- **相关论文/项目：** [trajectory-judge 预印本](https://arxiv.org/abs/2609.00038)；[可复现环境与裁决](https://github.com/mohammadi-hadi/trajectory-judge)
+- **相关性：** core
+- **置信度：** medium
 
-## What was observed
+## 观察到的内容
 
-In a deterministic support-desk environment with scripted ground truth and injected single-step faults, the paper compares outcome-only, step-rubric, programmatic, and self-consistency judges over 400 trajectories. It reports that outcome-only judging catches 84% of loud faults but 45% of silent faults and flags 33% of clean trajectories, while a step-rubric judge reaches 77% silent-fault recall with zero false alarms at roughly three times the cost. An invented promise in the final reply can evade both process-focused checks.
+在一个带有脚本化真值（ground truth）与注入式单步故障的确定性客服环境中，该论文在 400 条轨迹上比较了只看结果（outcome-only）、分步评分表（step-rubric）、程序化与自一致性四类评判。它报告：只看结果的评判能捕获 84% 的显性故障（loud faults），但只能捕获 45% 的隐性故障（silent faults），并误报 33% 的干净轨迹；而分步评分表评判以约三倍的成本达到 77% 的隐性故障召回率，且零误报。最终回复中虚构的承诺可以逃过这两类面向过程的检查。
 
-## Evidence and corroboration
+## 证据与佐证
 
-The arXiv abstract and public repository agree on the deterministic environment, six failure types, 100 clean trajectories, 175 silent faults, and 125 loud faults. The repository commits raw verdicts and an offline report rebuild, which makes the reported table auditable. The work is a new preprint under workshop review, so independent replication is still pending.
+arXiv 摘要与公开仓库在确定性环境、六类故障、100 条干净轨迹、175 条隐性故障与 125 条显性故障上保持一致。仓库提交了原始裁决与离线报告重建脚本，使所报告表格可审计。该工作是一篇处于研讨会审稿中的新预印本，独立复现仍有待完成。
 
-## Why it matters
+## 为什么重要
 
-Social simulations are especially vulnerable to “right outcome, wrong process” and to harmful claims hidden in otherwise successful dialogue. Stratifying evaluation by outcome survival and checking the final message separately are reusable safety requirements.
+社会模拟尤其容易受到“结果正确、过程错误”以及隐藏在成功对话中的有害声明的影响。按结果存活性对评估分层、并单独检查最终消息，是可复用的安全要求。
 
-## Follow-up
+## 后续跟进
 
-Port the fault-injection pattern to a text social world: wrong belief updates, skipped consent checks, hidden-state leakage, and unsupported promises. Compare outcome, trajectory, and final-message judges with cost and calibration reported together.
+将故障注入模式移植到文本社会世界：错误的信念更新、被跳过的同意检查、隐藏状态泄露与无依据的承诺。比较结果、轨迹与最终消息三类评判，并同时报告成本与校准。

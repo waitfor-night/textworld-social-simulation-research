@@ -1,91 +1,91 @@
-# Design synthesis: text worlds, social simulation, and role-playing
+# 设计综合：文本世界、社会模拟与角色扮演
 
-This memo distills useful design positions from the two shared discussions supplied for this project. It is a research-design document, not a verified literature review. Claims about prior work must be independently checked against the primary paper, code, or official project page before being promoted into `papers/`.
+这份备忘录提炼了为本项目提供的两份共享讨论中的有用设计立场。它是一份研究设计文档，而非经过核实的文献综述。关于先前工作的论断，必须先对照原始论文、代码或官方项目页面独立核实，才能提升到 `papers/` 中。
 
-## 1. Working thesis
+## 1. 工作论点
 
-The most defensible research target is not “make a larger AI town.” It is:
+最有辩护力的研究目标不是「造一个更大的 AI 小镇」，而是：
 
-> Study how local, identity-conditioned NPC actions spread through networks and constraints to form macro-events, how those events modify an executable world, and how different participants then observe and respond to the changed world.
+> 研究局部的、以身份为条件（identity-conditioned）的 NPC 行为如何通过网络和约束扩散形成宏观事件，这些事件如何修改一个可执行的世界，以及不同的参与者随后如何观察并响应这个被改变的世界。
 
-The simulator should be treated primarily as a mechanism laboratory. A convincing result means that a mechanism is reproducible and causally sensitive inside the specified world. It does not automatically mean that the same mechanism predicts real human society.
+模拟器首先应被视为一个机制实验室。一个有说服力的结果意味着某个机制在指定世界内是可复现的、且对因果干预敏感的。这并不自动意味着同一机制能预测真实人类社会。
 
-## 2. Keep three simulation targets separate
+## 2. 把三种模拟目标分开
 
-| Target | What is being modeled | Typical output |
+| 目标 | 建模对象 | 典型输出 |
 | --- | --- | --- |
-| Digital individual | A real person's profile, history, or preferences | Survey answer, decision, short behavior |
-| Controlled interaction | A small number of roles with goals, secrets, and relationships | Dialogue, negotiation, cooperation, conflict |
-| Open social world | Many persistent agents acting in a shared environment | Information cascades, institutions, migration, crises |
+| 数字个体 | 一个真实人物的画像、历史或偏好 | 问卷答案、决策、短期行为 |
+| 受控交互 | 少数几个带有目标、秘密和关系的角色 | 对话、谈判、合作、冲突 |
+| 开放社会世界 | 许多在共享环境中持续存在的智能体 | 信息级联、制度、迁徙、危机 |
 
-These targets should not be compared with one score. The map should report at least five independent scales:
+这些目标不应该用一个分数来比较。地图应至少报告五个独立的尺度：
 
-- identity: demographic prompt → history/trace → deep interview or life record;
-- action: single answer → dialogue turn → platform action → schedule/resource action;
-- time: one response → episode → days → years;
-- society: pair → group → town → network/population;
-- environment: prose description → LLM referee → explicit state and rules → calibrated world.
+- 身份：人口学提示词 → 历史/轨迹 → 深度访谈或生活记录；
+- 动作：单次回答 → 对话轮次 → 平台动作 → 日程/资源动作；
+- 时间：一次响应 → 一个情节（episode）→ 数天 → 数年；
+- 社会：成对 → 群体 → 小镇 → 网络/总体；
+- 环境：散文描述 → 大模型裁判 → 显式状态与规则 → 经过校准的世界。
 
-Large population size is not evidence of high-fidelity individuals. Conversely, a detailed individual simulator is not automatically a social simulator.
+群体规模大并不等于个体保真度高。反过来，一个细节丰富的个体模拟器也未必是社会模拟器。
 
-## 3. Text environment versus text world model
+## 3. 文本环境与文本世界模型
 
-Use the following distinction throughout the project:
+在整个项目中使用以下区分：
 
-- A **text-based environment** is the external interface and experimental world. It supplies facts, legal actions, state transitions, observations, and feedback.
-- A **text world model** is an agent's internal predictive model of that world. It should track state, predict consequences, represent uncertainty, generalize to new combinations, and support counterfactual reasoning.
+- **文本环境（text-based environment）** 是外部接口和实验世界。它提供事实、合法动作、状态转移、观察和反馈。
+- **文本世界模型（text world model）** 是智能体对该世界的内部预测模型。它应跟踪状态、预测后果、表示不确定性、泛化到新组合，并支持反事实推理。
 
-The environment is the source of truth; the world model is a hypothesis about the truth. A useful loop is:
+环境是真相的来源；世界模型是关于真相的假设。一个有用的循环是：
 
 ```text
 environment interaction → trajectory and feedback → learned world model
 → imagined rollout/search/planning → environment execution and correction
 ```
 
-An environment designed for world-model research should expose structured state alongside natural language, include partial observability and delayed feedback, support counterfactual branches, and record seeds and complete trajectories. Evaluation should separate legality, state tracking, prediction, planning, uncertainty calibration, and language quality.
+为世界模型研究设计的环境应同时暴露结构化状态与自然语言，包含部分可观察性和延迟反馈，支持反事实分支，并记录种子和完整轨迹。评估应区分合法性、状态跟踪、预测、规划、不确定性校准和语言质量。
 
-## 4. Four computational parts
+## 4. 四个计算部件
 
-The proposed system has four replaceable parts plus shared data contracts and tracing.
+所提议的系统有四个可替换部件，外加共享的数据契约和追踪。
 
-| Part | Suggested name | Responsibility | Hard boundary |
+| 部件 | 建议名称 | 职责 | 硬边界 |
 | --- | --- | --- | --- |
-| 1 | Role Agent Engine (RAE) | Identity, goals, beliefs, memory, planning, dialogue, action intent | Cannot read the full world or directly mutate it |
-| 2 | Social Diffusion Engine (SDE) | Exposure, imitation, communication, network/spatial spread, local aggregation | Cannot invent world facts or declare events by itself |
-| 3 | World State Engine (WSE) | Authoritative state, rules, action validation, effects, transactions, snapshots, replay | Does not generate private subjective experience |
-| 4 | Game Master System (GMS) | Non-diegetic control plane that schedules, projects, compiles, aggregates, audits, and renders | Must not be a single omniscient black box with unrestricted write access |
+| 1 | 角色智能体引擎（Role Agent Engine, RAE） | 身份、目标、信念、记忆、规划、对话、动作意图 | 不能读取完整世界，也不能直接修改它 |
+| 2 | 社会扩散引擎（Social Diffusion Engine, SDE） | 曝光、模仿、通信、网络/空间传播、局部聚合 | 不能发明世界事实，也不能自行宣布事件 |
+| 3 | 世界状态引擎（World State Engine, WSE） | 权威状态、规则、动作校验、效果、事务、快照、重放 | 不生成私密的主观体验 |
+| 4 | 游戏主控系统（Game Master System, GMS） | 非剧情内的控制平面：调度、投影、编译、聚合、审计、渲染 | 不能是一个拥有无限制写权限的单一全知黑箱 |
 
-The player should be a first-class participant, not a special `{{user}}` string:
+玩家应是一等参与者，而不是一个特殊的 `{{user}}` 字符串：
 
 ```text
 Participant = identity + controller(human|AI) + visibility + branch_state
 ```
 
-This permits the same world to contain a human-controlled journalist, an AI resident, or a temporary narrator while keeping permissions and causal state explicit.
+这使得同一个世界可以容纳人类控制的记者、AI 居民或临时叙述者，同时保持权限和因果状态的显式化。
 
-## 5. What “GM” means in this design
+## 5. 「GM」在此设计中意味着什么
 
-GMS is the glue and control plane. A GM LLM is only one semantic component inside it. Keep these distinct:
+GMS 是粘合剂和控制平面。GM LLM 只是其中的一个语义组件。请保持以下区分：
 
 ```text
 GM System = deterministic runtime + semantic operators + tools + policies + audit
 GM LLM    = one replaceable model used by selected operators
 ```
 
-Recommended operators:
+推荐的操作算子：
 
-- `Projection` — render an identity-conditioned observation after deterministic visibility filtering;
-- `ActionCompiler` — convert natural-language intent into typed action candidates;
-- `Adjudicator` — resolve only rule-approved ambiguities;
-- `EventSynthesizer` — name and explain evidence-backed event candidates;
-- `NarrativeRenderer` — produce news, rumor, scene, or character-view prose from committed history;
-- `ConsistencyAuditor` — detect leakage, contradictions, invalid effects, and causal gaps.
+- `Projection`（投影）— 在确定性可见性过滤之后，渲染以身份为条件的观察；
+- `ActionCompiler`（动作编译器）— 将自然语言意图转换为带类型的候选动作；
+- `Adjudicator`（裁决器）— 只解决规则批准的歧义；
+- `EventSynthesizer`（事件合成器）— 命名并解释有证据支持的事件候选；
+- `NarrativeRenderer`（叙事渲染器）— 从已提交的历史中生成新闻、传闻、场景或角色视角的散文；
+- `ConsistencyAuditor`（一致性审计器）— 检测信息泄漏、矛盾、无效效果和因果缺口。
 
-The most useful name for the projection-oriented role is **Perspective Game Master** (PGM), but the architecture should retain the broader **Game Master System** name because the control plane does more than projection.
+对投影导向角色最贴切的名称是 **Perspective Game Master（视角游戏主控，PGM）**，但架构应保留更宽泛的 **Game Master System** 名称，因为控制平面做的远不止投影。
 
-## 6. Authority, observation, and belief
+## 6. 权威、观察与信念
 
-There must be one authoritative world state and many subjective views.
+必须有一个权威的世界状态和许多主观视角。
 
 ```text
 WorldState(t)
@@ -97,17 +97,17 @@ WorldState(t)
   → ActionIntent
 ```
 
-Keep three layers separate:
+保持三个层次分离：
 
-1. **Authority** — what actually happened: inventory, price, law, location, relationship edge, event phase.
-2. **Observation** — what a participant could access through position, role, organization, channel, delay, and reliability.
-3. **Belief** — what that participant thinks the observation means; it may be wrong, incomplete, or biased.
+1. **权威（Authority）** — 实际发生了什么：库存、价格、法律、位置、关系边、事件阶段。
+2. **观察（Observation）** — 参与者通过位置、角色、组织、渠道、延迟和可靠性所能获得的信息。
+3. **信念（Belief）** — 参与者认为该观察意味着什么；它可能是错误的、不完整的或有偏的。
 
-The LLM may explain a filtered slice in a role-appropriate way, but it must not decide that a hidden secret is visible. This separation makes misinformation, private knowledge, asymmetric information, and competing interpretations possible without corrupting the world truth.
+大模型可以用符合角色的方式解释过滤后的信息切片，但它绝不能决定一个隐藏的秘密变得可见。这种分离使错误信息、私有知识、不对称信息和相互竞争的解释成为可能，而不会破坏世界真相。
 
-## 7. Social MapReduce execution model
+## 7. Social MapReduce 执行模型
 
-Each simulation barrier can be implemented as a hierarchical, event-driven MapReduce rather than asking one GM to read every trajectory.
+每个模拟屏障可以实现为分层的、事件驱动的 MapReduce，而不是让一个 GM 去读每条轨迹。
 
 ```text
 Map 1:   WorldSnapshot + Identity        → PersonalObservation
@@ -120,11 +120,11 @@ Commit:  validated WorldDelta            → WorldState(t+1) + EventLog
 Render:  committed history               → participant views / narrative outputs
 ```
 
-The diffusion engine answers “how does a signal arrive?” The GM answers “how is an arrived signal interpreted or rendered?” The world engine decides whether the resulting effect is legal and real.
+扩散引擎回答「信号如何到达？」GM 回答「到达的信号如何被解释或渲染？」世界引擎决定由此产生的效果是否合法且真实。
 
-## 8. Macro-events must be evidence-backed
+## 8. 宏观事件必须有证据支撑
 
-A macro-event is not a sentence generated by a narrator. It should be an entity with a lifecycle and evidence:
+宏观事件不是叙述者生成的一句话。它应该是一个有生命周期和证据的实体：
 
 ```text
 event_id, type, phase, time_window, spatial_scope,
@@ -133,9 +133,9 @@ triggering_conditions, causal_parents, severity, confidence,
 world_state_diff
 ```
 
-Candidate detectors can combine population/behavior thresholds, graph change, spatial concentration, resource pressure, belief or emotion shifts, self-exciting processes, and hard rules. The semantic model can name, summarize, and explain an event after the detector has found it.
+候选检测器可以结合群体/行为阈值、图变化、空间集中度、资源压力、信念或情感转变、自激过程以及硬规则。语义模型在检测器发现事件之后，才可以命名、总结和解释它。
 
-The feedback loop is the research core:
+反馈循环是研究的核心：
 
 ```text
 local action → typed effect → exposure/propagation → aggregation
@@ -143,47 +143,47 @@ local action → typed effect → exposure/propagation → aggregation
 → new NPC response
 ```
 
-The first benchmark family should include information, resource, institutional, and disaster shocks. For each one, compare paired counterfactual replays, mechanism ablations, rule-only agents, LLM agents, and hybrid agents.
+第一批基准测试族应包括信息冲击、资源冲击、制度冲击和灾难冲击。对每一种冲击，比较配对的反事实重放、机制消融、纯规则智能体、大模型智能体和混合智能体。
 
-## 9. Narrative is a read-only projection
+## 9. 叙事是只读投影
 
-Story generation should consume history rather than author it invisibly:
+故事生成应消费历史，而不是在暗中书写历史：
 
 ```text
 authoritative event log → event DAG → character-view subgraph
 → turning points/conflicts → outline → scenes or chapters
 ```
 
-If a writer wants to force a plot point, record it as an explicit external intervention and branch the simulation. This preserves the distinction between emergent history and authored intervention.
+如果作者想强制一个情节点，请将其记录为显式的外部干预并分支模拟。这保持了涌现历史与人为干预之间的区分。
 
-## 10. Engineering order
+## 10. 工程顺序
 
-Build the smallest deterministic core before adding scale or stylistic complexity:
+在增加规模或风格复杂度之前，先构建最小的确定性核心：
 
-1. schemas for `WorldState`, `AgentState`, `BeliefState`, `Observation`, `ActionIntent`, `TypedAction`, `Effect`, `Exposure`, `EventCandidate`, `MacroEvent`, and `StateDiff`;
-2. authoritative world state, logical clock, validation, atomic commit, append-only log, snapshots, replay, and branch IDs;
-3. experiment configuration with seed, model/prompt versions, scenario version, sampling parameters, and code commit;
-4. rule-based, random, threshold, and utility baselines;
-5. identity projection and information-permission tests;
-6. NPC runtime, memory, relationship, activity, and scheduling adapters;
-7. diffusion, event lifecycle, feedback, and causal replay;
-8. narrative rendering and only then large-scale serving/tracing optimization.
+1. `WorldState`、`AgentState`、`BeliefState`、`Observation`、`ActionIntent`、`TypedAction`、`Effect`、`Exposure`、`EventCandidate`、`MacroEvent` 和 `StateDiff` 的模式；
+2. 权威世界状态、逻辑时钟、校验、原子提交、只追加日志、快照、重放和分支 ID；
+3. 带种子、模型/提示词版本、场景版本、采样参数和代码提交号的实验配置；
+4. 基于规则、随机、阈值和效用的基线；
+5. 身份投影和信息权限测试；
+6. NPC 运行时、记忆、关系、活动和日程适配器；
+7. 扩散、事件生命周期、反馈和因果重放；
+8. 叙事渲染，最后才是大规模服务/追踪优化。
 
-The project should initially target a reproducible 200–500 agent slice. Scale to thousands only after the same event can be replayed, explained, and falsified.
+项目初期应瞄准可复现的 200–500 个智能体的切片。只有在同一事件可以被重放、解释和证伪之后，再扩展到数千个。
 
-## 11. Evaluation checklist
+## 11. 评估清单
 
-Report at least:
+至少报告：
 
-- world invariants, transaction correctness, state hashes, and replay determinism;
-- individual identity/goal consistency, knowledge-boundary violations, and behavior under interventions;
-- group distributions, variance, correlations, network structure, and temporal dynamics;
-- event detection precision/recall, lead time, lifecycle, spatial scope, and counterfactual sensitivity;
-- narrative causality, agency, surprise-within-constraints, and usefulness to a human writer;
-- request count, context length, prefix reuse, queue/prefill/decode/tool-wait latency, and cost per valid event.
+- 世界不变量、事务正确性、状态哈希和重放确定性；
+- 个体身份/目标一致性、知识边界违规，以及干预下的行为；
+- 群体分布、方差、相关性、网络结构和时间动态；
+- 事件检测的精确率/召回率、提前量、生命周期、空间范围和反事实敏感性；
+- 叙事因果性、能动性、约束内的惊喜感，以及对人类作者的实用性；
+- 请求数、上下文长度、前缀复用、队列/预填充/解码/工具等待延迟，以及每个有效事件的成本。
 
-Do not rely on a single LLM judge. Use independent structured metrics and, for narrative usefulness, blind evaluation by writers or domain experts.
+不要依赖单一的大模型评判。使用独立的结构化指标；对于叙事实用性，采用作家或领域专家的盲评。
 
-## 12. Research and system traces
+## 12. 研究与系统轨迹
 
-The simulation can become a distinctive inference workload, but only if traces preserve causal context. Record `simulation_id`, `branch_id`, logical tick, agent, event, dependency parents, model, shared-prefix identity, input/output tokens, queue/prefill/decode/tool-wait times, cache reuse, priority, and commit time. Keep scientific runs fixed to one model/configuration; study model routing and serving optimization as separate system experiments.
+模拟可以成为一种独特的推理工作负载，但前提是轨迹保留因果上下文。记录 `simulation_id`、`branch_id`、逻辑 tick、智能体、事件、依赖父节点、模型、共享前缀标识、输入/输出 token 数、队列/预填充/解码/工具等待时间、缓存复用、优先级和提交时间。科学运行固定使用单一模型/配置；把模型路由和服务优化作为独立的系统实验来研究。

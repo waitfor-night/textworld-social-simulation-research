@@ -1,26 +1,26 @@
 # CHIME: Credit-Aware Hierarchical Memory Evolution for Long-Horizon Agentic Planning
 
-- **Source type:** official paper/preprint
-- **Author or organization:** Yongshi Ye and coauthors
-- **Published on:** 2026-09-02 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2609.02074
-- **Related paper/project:** [CHIME preprint](https://arxiv.org/abs/2609.02074); [author-linked code destination](https://github.com/ATH-MaaS/Marco-DeepResearch)
-- **Relevance:** core
-- **Confidence:** medium
+- **来源类型：** 官方论文/预印本
+- **作者或组织：** Yongshi Ye 及合著者
+- **发布于：** 2026-09-02（arXiv v1）
+- **观察日期：** 2026-09-04
+- **规范链接：** https://arxiv.org/abs/2609.02074
+- **相关论文/项目：** [CHIME 预印本](https://arxiv.org/abs/2609.02074)；[作者关联的代码地址](https://github.com/ATH-MaaS/Marco-DeepResearch)
+- **相关性：** core
+- **置信度：** medium
 
-## What was observed
+## 观察到的内容
 
-CHIME separates a planning memory bank from an execution memory bank. Before writing an experience, it attributes the outcome to the plan, the execution, both, or neither, rather than using a final success bit that mixes planning errors with environment and execution errors. The abstract reports gains over training-based and self-evolving baselines on four long-horizon benchmarks, fewer effective memory items, and transfer of accumulated memory across backbone models.
+CHIME 将规划记忆库与执行记忆库分离。在写入一条经验之前，它会把结果归因于规划、执行、两者皆有或两者皆无，而不是使用一个把规划错误同环境、执行错误混为一谈的最终成功位。摘要报告：在四个长程基准测试上，相对基于训练与自我进化的基线有所提升，有效记忆条目更少，且累积的记忆可跨骨干模型迁移。
 
-## Evidence and corroboration
+## 证据与佐证
 
-The dated arXiv abstract is the primary evidence. It says code will be released and links to the Marco-DeepResearch repository; no released CHIME implementation was confirmed during this scan. Results and transfer claims therefore remain author-reported until the benchmark scripts and memory traces are available.
+带日期的 arXiv 摘要是主要证据。摘要称代码将开源，并链接到 Marco-DeepResearch 仓库；本次扫描期间未确认已发布的 CHIME 实现。因此，在基准脚本与记忆轨迹可用之前，结果与迁移结论仍是作者自报的。
 
-## Why it matters
+## 为什么重要
 
-Social simulations also conflate bad intentions, bad plans, failed actions, and hostile or changing environments. Credit-aware writes offer a testable rule for preventing a society's shared memory from fossilising the wrong causal explanation.
+社会模拟同样会混淆不良意图、糟糕计划、失败动作与敌对或变化的环境。信用感知（credit-aware）写入提供了一条可检验的规则，可防止社会共享记忆固化错误的因果解释。
 
-## Follow-up
+## 后续跟进
 
-Check the promised release and benchmark definitions. Prototype separate plan and execution memories in a small social environment, with replay-based attribution tests for delayed consequences and exogenous shocks.
+核查承诺的代码发布与基准测试定义。在一个小型社会环境中原型化分离的规划与执行记忆，并针对延迟后果与外生冲击进行基于重放的归因测试。

@@ -1,26 +1,26 @@
 # Classic AI Scaffolding for LLM Social Agents
 
-- **Source type:** official paper/preprint
-- **Author or organization:** Anatole Gershman
-- **Published on:** 2026-09-01 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2609.01167
-- **Related paper/project:** [EpisodeSim preprint](https://arxiv.org/abs/2609.01167)
-- **Relevance:** core
-- **Confidence:** medium
+- **来源类型：** 官方论文/预印本
+- **作者或组织：** Anatole Gershman
+- **发布于：** 2026-09-01（arXiv v1）
+- **观察日期：** 2026-09-04
+- **规范链接：** https://arxiv.org/abs/2609.01167
+- **相关论文/项目：** [EpisodeSim 预印本](https://arxiv.org/abs/2609.01167)
+- **相关性：** core
+- **置信度：** medium
 
-## What was observed
+## 观察到的内容
 
-The preprint introduces EpisodeSim, a hybrid architecture for bounded social episodes such as a lunch or check-in. It puts roles, scripts, material state, obligations, commitments, timing, and closure into persistent control state, while a World Master maintains shared reality, constructs scenes, adjudicates proposed actions, tracks effects, and decides when an episode closes.
+该预印本提出 EpisodeSim，一种面向有界社会片段（如一次午餐或一次入住登记）的混合架构。它把角色、脚本、物质状态、义务、承诺、时序与收尾放入持久控制状态中，同时由 World Master 维护共享现实、构建场景、裁决拟议动作、追踪效果，并决定片段何时结束。
 
-## Evidence and corroboration
+## 证据与佐证
 
-The arXiv abstract reports small qualitative ablations in two held-out settings and attributes improved coherence to persistent classic-AI-style scaffolding around the language model. The source is a single new preprint; no independent replication or public implementation link was identified in this scan.
+arXiv 摘要报告了两个留出场景中的小规模定性消融，并将连贯性的改善归因于语言模型周围持久存在的经典 AI 式脚手架。来源是单篇新预印本；本次扫描中未发现独立复现或公开实现链接。
 
-## Why it matters
+## 为什么重要
 
-This is a direct architectural answer to the failure mode in which locally plausible dialogue is mistaken for a coherent social world. The explicit episode controller and authoritative World Master are useful design primitives for text environments that need obligations and termination, not only free-form conversation.
+这是对「把局部貌似合理的对话误认为连贯社会世界」这一失效模式的直接架构性回答。显式的片段控制器与权威 World Master 是文本环境的有用设计原语——这些环境需要义务与终止条件，而不仅仅是自由形式的对话。
 
-## Follow-up
+## 后续跟进
 
-Read the full methods and reproduce the ablations with an event-sourced state log. Compare a World Master against a prose-only baseline on obligation tracking, delayed effects, and closure under paraphrased actions.
+阅读完整方法，并用事件溯源状态日志复现消融实验。将 World Master 与纯文本基线在义务追踪、延迟效果以及改写动作下的收尾处理上进行对比。

@@ -1,26 +1,26 @@
 # Collective Creativity in Hybrid Societies
 
-- **Source type:** official paper/preprint
-- **Author or organization:** Mason Youngblood and coauthors
-- **Published on:** 2026-09-02 (arXiv v1)
-- **Observed on:** 2026-09-04
-- **Canonical URL:** https://arxiv.org/abs/2609.02620
-- **Related paper/project:** [Collective creativity preprint](https://arxiv.org/abs/2609.02620)
-- **Relevance:** core
-- **Confidence:** medium
+- **来源类型：** 官方论文/预印本
+- **作者或组织：** Mason Youngblood 及合著者
+- **发布于：** 2026-09-02（arXiv v1）
+- **观察日期：** 2026-09-04
+- **规范链接：** https://arxiv.org/abs/2609.02620
+- **相关论文/项目：** [Collective creativity 预印本](https://arxiv.org/abs/2609.02620)
+- **相关性：** core
+- **置信度：** medium
 
-## What was observed
+## 观察到的内容
 
-This paper distinguishes novelty of an individual artifact from diversity of a population and treats creativity as a property of interacting people and algorithms. Its abstract reports that AI-assisted ideation raises individual novelty while often narrowing aggregate diversity, but that mixed human-machine groups can outperform and out-diversify either pure group when composition, proportion, and connectivity are favourable.
+该论文将个体作品的创新性与群体的多样性区分开来，并把创造力视为相互作用的个人与算法的一种属性。其摘要报告称，AI 辅助构思提升了个人创新性，却常常收窄整体多样性；但在构成、比例和连通性有利的情况下，混合人机群体在表现和多样性上都能胜过纯人群体或纯机器群体。
 
-## Evidence and corroboration
+## 证据与佐证
 
-The claims are recorded on the 2026-09-02 arXiv page. The scan did not identify a code or dataset link, and the abstract does not expose enough study detail to assess sampling, interaction protocol, or effect sizes. This is therefore a useful conceptual and empirical lead, not a validated law of hybrid societies.
+这些论断记录于 2026-09-02 的 arXiv 页面。扫描未发现代码或数据集链接，摘要也未提供足够的实验细节来评估抽样方式、交互协议或效应量。因此，这只是一条有价值的概念与实证线索，而非混合社会已验证的规律。
 
-## Why it matters
+## 为什么重要
 
-Social simulation can optimise vivid individual agents while accidentally collapsing population-level variety. The novelty-versus-diversity split suggests a concrete pair of metrics for evaluating cultural or creative emergence in text worlds.
+社会模拟可能在优化出鲜活的个体智能体的同时，意外地压缩群体层面的多样性。创新性与多样性的二分，为评估文本世界中的文化涌现或创造力涌现提供了一对具体的指标。
 
-## Follow-up
+## 后续跟进
 
-Inspect the full study design and operational definitions. Add population diversity, idea lineage, and connectivity interventions to a reproducible hybrid-agent environment rather than relying on average per-agent quality.
+检查完整的实验设计和操作性定义。在可复现的混合智能体环境中加入群体多样性、想法谱系和连通性干预，而不是只依赖智能体的平均质量。

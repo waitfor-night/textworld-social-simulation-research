@@ -1,36 +1,36 @@
-# Source and citation policy
+# 来源与引用政策
 
-## Source hierarchy
+## 来源层级
 
-1. Primary paper, code, dataset, benchmark, or official project documentation.
-2. Author or lab announcement that links to the primary artifact.
-3. Reputable reporting with a clear date and named source.
-4. Public social-media post from an identifiable researcher or organization.
+1. 原始论文、代码、数据集、基准测试或官方项目文档。
+2. 链接到原始成果的作者或实验室公告。
+3. 有明确日期和具名来源的可信报道。
+4. 可识别的 researcher 或组织发布的公开社交媒体帖子。
 
-Lower-level sources are useful for discovery, but the record should link upward to primary evidence whenever possible.
+低层级来源可用于发现，但记录应尽可能向上链接到原始证据。
 
-## Required fields
+## 必填字段
 
-Every item needs:
+每条条目需要：
 
-- canonical URL;
-- source type;
-- publication/posting date, if known;
-- observation date;
-- relevance label;
-- confidence (`high`, `medium`, or `low`);
-- a short note explaining the evidence.
+- 规范 URL；
+- 来源类型；
+- 发布/发帖日期（如可知）；
+- 观察日期；
+- 相关性标签；
+- 置信度（`high`、`medium` 或 `low`）；
+- 一段说明证据的简短注释。
 
-## Social-media signals
+## 社交媒体信号
 
-Posts and threads can reveal early releases, debates, replications, and useful references. They are not automatically evidence of a result. Mark them as `signal` until the linked paper, code, dataset, or official announcement is checked.
+帖子和讨论串可能揭示早期发布、争论、复现和有用的参考文献。它们不自动构成结果的证据。在核验所链接的论文、代码、数据集或官方公告之前，将它们标记为 `signal`。
 
-## Copyright and privacy
+## 版权与隐私
 
-- Store metadata, links, and original summaries; do not mirror paywalled or copyrighted full text.
-- Keep personal email content, private messages, access tokens, and unpublished notes out of the public repository.
-- Do not publish personal information merely because it appeared in a source.
+- 存储元数据、链接和原创摘要；不镜像付费或受版权保护的全文。
+- 将个人邮件内容、私信、访问令牌和未发表笔记排除在公开仓库之外。
+- 不因为信息出现在某来源中就发布个人信息。
 
-## Design memos versus evidence
+## 设计备忘录与证据
 
-Design notes distilled from discussions, prototypes, or shared conversations are hypotheses and engineering choices, not evidence that a claimed mechanism works. Keep them under `docs/` and label them clearly. Promote a claim into `papers/` only after checking the primary source and recording the exact artifact, date, and evidence.
+从讨论、原型或共享对话中提炼的设计笔记是假设和工程选择，不是某个机制有效的证据。将它们放在 `docs/` 下并明确标注。只有在核验原始来源并记录确切的成果、日期和证据之后，才能将某个声称提升到 `papers/` 中。
