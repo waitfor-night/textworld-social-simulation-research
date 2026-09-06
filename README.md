@@ -43,7 +43,7 @@ See [`docs/workflow.md`](docs/workflow.md) and [`docs/source-policy.md`](docs/so
 
 The current architecture and research-design synthesis is documented in [`docs/design-synthesis.md`](docs/design-synthesis.md).
 
-The latest research-intake digest is [`digests/2026-09-05.md`](digests/2026-09-05.md). The previous literature and product snapshot is [`digests/2026-09-04-literature-product-snapshot.md`](digests/2026-09-04-literature-product-snapshot.md), with the corresponding product comparison in [`signals/2026-09-04-roleplay-product-landscape.md`](signals/2026-09-04-roleplay-product-landscape.md).
+The latest research-intake digest is [`digests/2026-09-06.md`](digests/2026-09-06.md). The previous literature and product snapshot is [`digests/2026-09-04-literature-product-snapshot.md`](digests/2026-09-04-literature-product-snapshot.md), with the corresponding product comparison in [`signals/2026-09-04-roleplay-product-landscape.md`](signals/2026-09-04-roleplay-product-landscape.md).
 
 ## arXiv intake
 
