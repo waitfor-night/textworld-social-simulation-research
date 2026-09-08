@@ -137,11 +137,12 @@ function renderArticle(html) {
 async function orderedNames(kind) {
   if (kind === "papers") {
     if (!papersCache) papersCache = await api("/api/papers");
-    return papersCache.slice()
-      .sort((a, b) => (b.observed_on || "").localeCompare(a.observed_on || ""))
+    return filterPapers(papersCache.slice()
+      .sort((a, b) => (b.observed_on || "").localeCompare(a.observed_on || "")))
       .map((p) => ({ name: p.id, title: p.title }));
   }
-  return getList(kind);
+  const items = await getList(kind);
+  return kind === "signals" ? filterSignals(items) : items;
 }
 
 function noteNavHTML(kind, prev, next) {
@@ -221,6 +222,16 @@ async function viewOverview() {
 /* ---------- 论文 ---------- */
 let papersCache = null;
 let paperPage = 1;
+const paperFilters = { area: "", relevance: "", text: "" };
+
+function filterPapers(papers) {
+  const q = paperFilters.text.trim().toLowerCase();
+  return papers.filter((p) =>
+    (!paperFilters.area || p.primary_area === paperFilters.area)
+    && (!paperFilters.relevance || p.relevance === paperFilters.relevance)
+    && (!q || (p.title + " " + p.first_author + " " + p.tags.join(" "))
+      .toLowerCase().includes(q)));
+}
 
 async function viewPapers() {
   setNav("papers");
@@ -243,16 +254,9 @@ async function viewPapers() {
     <div id="paper-table"></div>
     <div id="pager"></div>`;
 
-  const filtered = () => {
-    const area = $("#f-area").value;
-    const rel = $("#f-rel").value;
-    const q = $("#f-text").value.trim().toLowerCase();
-    return papers.filter((p) =>
-      (!area || p.primary_area === area)
-      && (!rel || p.relevance === rel)
-      && (!q || (p.title + " " + p.first_author + " " + p.tags.join(" "))
-        .toLowerCase().includes(q)));
-  };
+  $("#f-area").value = paperFilters.area;
+  $("#f-rel").value = paperFilters.relevance;
+  $("#f-text").value = paperFilters.text;
 
   const tableHTML = (rows) => rows.length ? `
     <table class="paper-table">
@@ -278,7 +282,7 @@ async function viewPapers() {
     </table>` : `<p class="muted">没有符合过滤条件的论文。</p>`;
 
   const render = () => {
-    const rows = filtered();
+    const rows = filterPapers(papers);
     const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
     if (paperPage > totalPages) paperPage = totalPages;
     const pageRows = rows.slice((paperPage - 1) * PAGE_SIZE, paperPage * PAGE_SIZE);
@@ -287,7 +291,13 @@ async function viewPapers() {
   };
 
   ["#f-area", "#f-rel", "#f-text"].forEach((s) =>
-    $(s).addEventListener("input", () => { paperPage = 1; render(); }));
+    $(s).addEventListener("input", () => {
+      paperFilters.area = $("#f-area").value;
+      paperFilters.relevance = $("#f-rel").value;
+      paperFilters.text = $("#f-text").value;
+      paperPage = 1;
+      render();
+    }));
   bindPager((p) => { paperPage = p; render(); scrollToListTop(); });
   $("#paper-table").addEventListener("click", (e) => {
     const tr = e.target.closest("tr[data-href]");
@@ -300,6 +310,13 @@ async function viewPapers() {
 const PAGE_SIZE = 10;
 const listCache = {};
 const listPage = {};
+const signalFilters = { relevance: "", confidence: "" };
+
+function filterSignals(items) {
+  return items.filter((it) =>
+    (!signalFilters.relevance || it.relevance === signalFilters.relevance)
+    && (!signalFilters.confidence || it.confidence === signalFilters.confidence));
+}
 
 function pagerHTML(page, totalPages, total) {
   if (totalPages <= 1) {
@@ -345,32 +362,58 @@ async function getList(kind) {
 async function viewList(kind) {
   setNav(kind);
   const items = await getList(kind);
-  const totalPages = Math.max(1, Math.ceil(items.length / PAGE_SIZE));
-  const page = Math.min(listPage[kind] || 1, totalPages);
-  const pageItems = items.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   content.innerHTML = `
-    <h1>${KINDS[kind].label} <span class="muted">(${items.length})</span></h1>
-    <div class="card-list">
-      ${pageItems.map((it) => {
-        const extra = kind === "signals" ? `
-          <div class="card-meta">
-            ${esc(it.date)} ·
-            ${relBadge(it.relevance || "signal")}
-            ${it.confidence ? confBadge(it.confidence) : ""}
-            ${it.source_type ? `<span class="muted">${esc(it.source_type)}</span>` : ""}
-          </div>` : `<div class="card-meta muted">${esc(it.date)}</div>`;
-        return `
-        <a class="card" href="#/${KINDS[kind].route}/${esc(it.name)}">
-          <div class="card-title">${esc(it.title)}</div>
-          ${extra}
-        </a>`;
-      }).join("")}
-    </div>
-    <div id="pager">${pagerHTML(page, totalPages, items.length)}</div>`;
-  bindPager((p) => {
-    listPage[kind] = p;
-    viewList(kind).then(scrollToListTop);
-  });
+    <h1>${KINDS[kind].label} <span id="list-count" class="muted"></span></h1>
+    ${kind === "signals" ? `<div class="filters">
+      <select id="f-rel"><option value="">全部相关性</option>
+        ${Object.entries(RELEVANCE).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}
+      </select>
+      <select id="f-conf"><option value="">全部置信度</option>
+        ${Object.entries(CONFIDENCE).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}
+      </select>
+    </div>` : ""}
+    <div id="note-list" class="card-list"></div>
+    <div id="pager"></div>`;
+
+  if (kind === "signals") {
+    $("#f-rel").value = signalFilters.relevance;
+    $("#f-conf").value = signalFilters.confidence;
+  }
+
+  const render = () => {
+    const rows = kind === "signals" ? filterSignals(items) : items;
+    const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+    const page = Math.min(listPage[kind] || 1, totalPages);
+    const pageItems = rows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+    $("#list-count").textContent = `(${rows.length})`;
+    $("#note-list").innerHTML = pageItems.map((it) => {
+      const extra = kind === "signals" ? `
+        <div class="card-meta">
+          ${esc(it.date)} ·
+          ${relBadge(it.relevance || "signal")}
+          ${it.confidence ? confBadge(it.confidence) : ""}
+          ${it.source_type ? `<span class="muted">${esc(it.source_type)}</span>` : ""}
+        </div>` : `<div class="card-meta muted">${esc(it.date)}</div>`;
+      return `
+      <a class="card" href="#/${KINDS[kind].route}/${esc(it.name)}">
+        <div class="card-title">${esc(it.title)}</div>
+        ${extra}
+      </a>`;
+    }).join("") || `<p class="muted">没有符合过滤条件的信号。</p>`;
+    $("#pager").innerHTML = pagerHTML(page, totalPages, rows.length);
+  };
+
+  bindPager((p) => { listPage[kind] = p; render(); scrollToListTop(); });
+  if (kind === "signals") {
+    ["#f-rel", "#f-conf"].forEach((s) =>
+      $(s).addEventListener("input", () => {
+        signalFilters.relevance = $("#f-rel").value;
+        signalFilters.confidence = $("#f-conf").value;
+        listPage[kind] = 1;
+        render();
+      }));
+  }
+  render();
 }
 
 /* ---------- 搜索 ---------- */
