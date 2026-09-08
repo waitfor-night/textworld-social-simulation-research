@@ -30,9 +30,13 @@ except ImportError:
 
 KINDS = {"papers", "signals", "digests", "docs"}
 NAME_RE = re.compile(r"^[\w.\-]+$")
+BOOKMARKS_FILE = os.path.join(DASH, "bookmarks.json")
+MARK_PURPOSES = {"reproduce", "cite", "feature", "track"}
+MARK_PRIORITIES = {"important", "secondary", "undecided"}
 
 _cache = {}
 _lock = threading.Lock()
+_bookmarks_lock = threading.Lock()
 
 
 def read_text(path):
@@ -85,6 +89,61 @@ def signal_meta(text):
         "confidence": grab("置信度"),
         "source_type": grab("来源类型"),
     }
+
+
+def load_bookmarks():
+    try:
+        with open(BOOKMARKS_FILE, encoding="utf-8") as f:
+            raw = json.load(f)
+    except (OSError, ValueError):
+        raw = {}
+    result = {"papers": {}, "signals": {}}
+    for kind in result:
+        entries = raw.get(kind, {})
+        # 兼容旧版仅保存名称数组的格式。
+        if isinstance(entries, list):
+            entries = {name: {"purposes": ["track"], "priority": "undecided"}
+                       for name in entries}
+        if not isinstance(entries, dict):
+            continue
+        for name, mark in entries.items():
+            if not isinstance(name, str) or not NAME_RE.fullmatch(name) or not isinstance(mark, dict):
+                continue
+            raw_purposes = mark.get("purposes", [])
+            purposes = sorted(set(raw_purposes) & MARK_PURPOSES) if isinstance(raw_purposes, list) else []
+            priority = mark.get("priority", "")
+            if purposes or priority in MARK_PRIORITIES:
+                result[kind][name] = {
+                    "purposes": purposes,
+                    "priority": priority if priority in MARK_PRIORITIES else "",
+                }
+    return result
+
+
+def save_bookmark(kind, name, mark):
+    if kind not in ("papers", "signals") or not NAME_RE.fullmatch(name) or not isinstance(mark, dict):
+        return None
+    if not os.path.isfile(os.path.join(ROOT, kind, name + ".md")):
+        return None
+    raw_purposes = mark.get("purposes", [])
+    if not isinstance(raw_purposes, list) or any(not isinstance(x, str) for x in raw_purposes):
+        return None
+    purposes = sorted(set(raw_purposes) & MARK_PURPOSES)
+    priority = mark.get("priority", "")
+    if priority not in MARK_PRIORITIES:
+        priority = ""
+    with _bookmarks_lock:
+        data = load_bookmarks()
+        if purposes or priority:
+            data[kind][name] = {"purposes": purposes, "priority": priority}
+        else:
+            data[kind].pop(name, None)
+        tmp = BOOKMARKS_FILE + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+            f.write("\n")
+        os.replace(tmp, BOOKMARKS_FILE)
+        return data
 
 
 def count_md(kind):
@@ -208,6 +267,9 @@ class Handler(BaseHTTPRequestHandler):
                 ),
             }, ensure_ascii=False))
 
+        if path == "/api/bookmarks":
+            return self._send(200, json.dumps(load_bookmarks(), ensure_ascii=False))
+
         if path == "/api/papers":
             papers = load_papers()
             for p in papers:
@@ -237,6 +299,21 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, json.dumps(do_search(q), ensure_ascii=False))
 
         self._send(404, json.dumps({"error": "unknown endpoint"}))
+
+    def do_POST(self):
+        if urlparse(self.path).path != "/api/bookmarks":
+            return self._send(404, json.dumps({"error": "unknown endpoint"}))
+        try:
+            size = int(self.headers.get("Content-Length", "0"))
+            if size > 4096:
+                raise ValueError
+            body = json.loads(self.rfile.read(size))
+            data = save_bookmark(body.get("kind"), body.get("name"), body.get("mark"))
+            if data is None:
+                raise ValueError
+        except (ValueError, TypeError, json.JSONDecodeError):
+            return self._send(400, json.dumps({"error": "invalid bookmark"}))
+        return self._send(200, json.dumps(data, ensure_ascii=False))
 
     def _note(self, kind, name):
         if kind not in KINDS or not NAME_RE.fullmatch(name):

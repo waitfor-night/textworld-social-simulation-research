@@ -156,6 +156,9 @@ h2 { font-size: 18px; margin: 24px 0 10px; }
 
 /* ---------- 列表 / 卡片 ---------- */
 .card-list { display: flex; flex-direction: column; gap: 10px; }
+.card-wrap { position: relative; }
+.card-wrap .card { padding-right: 52px; }
+.card-wrap > .mark-btn { position: absolute; right: 14px; top: 12px; }
 .card {
   display: block;
   background: var(--panel);
@@ -200,7 +203,50 @@ h2 { font-size: 18px; margin: 24px 0 10px; }
 .paper-table tr.clickable:hover { background: var(--hover); }
 .paper-table .title-cell { max-width: 420px; }
 .paper-table .t { font-weight: 600; }
+.mark-col { width: 48px; }
 .nowrap { white-space: nowrap; }
+
+.mark-btn {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 5px 7px;
+}
+.mark-btn:hover, .mark-btn.marked { color: #d97706; border-color: #d97706; }
+.mark-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.mark-summary { display: flex; align-items: center; gap: 8px; }
+.mark-summary .mark-badges { margin-top: 0; }
+.note-actions { display: flex; justify-content: space-between; align-items: center; }
+.note-actions .back { margin-bottom: 14px; }
+
+dialog {
+  width: min(440px, calc(100% - 32px));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+  color: var(--text);
+  padding: 20px 24px;
+}
+dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
+dialog h2 { margin: 0 0 8px; }
+dialog h2:not(:first-child) { margin-top: 18px; }
+.mark-options { display: flex; flex-wrap: wrap; gap: 10px 18px; }
+.mark-options label { cursor: pointer; }
+.dialog-actions { display: flex; gap: 8px; margin-top: 24px; }
+.dialog-actions span { flex: 1; }
+.dialog-actions button {
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+}
+.dialog-actions .primary { background: var(--accent); color: #fff; border-color: var(--accent); }
 
 /* ---------- 徽章 ---------- */
 .badge {

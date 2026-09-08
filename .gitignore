@@ -5,4 +5,5 @@ inbox/
 .DS_Store
 Thumbs.db
 dashboard/.venv/
+dashboard/bookmarks.json
 __pycache__/

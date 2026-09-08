@@ -15,6 +15,7 @@
     <a href="#/overview" data-nav="overview">总览</a>
     <a href="#/papers" data-nav="papers">论文</a>
     <a href="#/signals" data-nav="signals">信号</a>
+    <a href="#/bookmarks" data-nav="bookmarks">标记</a>
     <a href="#/digests" data-nav="digests">研究摘要</a>
     <a href="#/docs" data-nav="docs">文档</a>
   </nav>
@@ -28,6 +29,29 @@
   </header>
   <main id="content"></main>
 </div>
+<dialog id="mark-dialog">
+  <form method="dialog">
+    <h2>标记用途</h2>
+    <div class="mark-options">
+      <label><input type="checkbox" name="purpose" value="reproduce"> 复现</label>
+      <label><input type="checkbox" name="purpose" value="cite"> 引用</label>
+      <label><input type="checkbox" name="purpose" value="feature"> 功能参考</label>
+      <label><input type="checkbox" name="purpose" value="track"> 持续关注</label>
+    </div>
+    <h2>重要程度</h2>
+    <div class="mark-options">
+      <label><input type="radio" name="priority" value="important"> 重要</label>
+      <label><input type="radio" name="priority" value="secondary"> 次要</label>
+      <label><input type="radio" name="priority" value="undecided"> 待定</label>
+    </div>
+    <div class="dialog-actions">
+      <button id="mark-remove" type="button">移除标记</button>
+      <span></span>
+      <button value="cancel">取消</button>
+      <button id="mark-save" type="button" class="primary">保存</button>
+    </div>
+  </form>
+</dialog>
 <script src="/app.js"></script>
 </body>
 </html>

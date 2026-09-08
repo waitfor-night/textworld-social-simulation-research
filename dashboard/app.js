@@ -60,6 +60,59 @@ async function apiNote(kind, name) {
   return res.text();
 }
 
+const PURPOSES = { reproduce: "复现", cite: "引用", feature: "功能参考", track: "持续关注" };
+const PRIORITIES = { important: "重要", secondary: "次要", undecided: "待定" };
+let bookmarks = null;
+async function getBookmarks() {
+  return bookmarks ||= await api("/api/bookmarks");
+}
+function getMark(kind, name) {
+  return bookmarks?.[kind]?.[name] || null;
+}
+function markButton(kind, name) {
+  const marked = !!getMark(kind, name);
+  return `<button type="button" class="mark-btn${marked ? " marked" : ""}"
+    data-mark-kind="${kind}" data-mark-name="${esc(name)}"
+    title="${marked ? "编辑标记" : "添加标记"}" aria-label="${marked ? "编辑标记" : "添加标记"}">${marked ? "★" : "☆"}</button>`;
+}
+function markBadges(kind, name) {
+  const mark = getMark(kind, name);
+  if (!mark) return "";
+  return `<div class="mark-badges">${mark.purposes.map((p) => badge(PURPOSES[p], "#7c3aed")).join("")}
+    ${mark.priority ? badge(PRIORITIES[mark.priority], mark.priority === "important" ? "#dc2626" : "#64748b") : ""}</div>`;
+}
+async function saveMark(kind, name, mark) {
+  const res = await fetch("/api/bookmarks", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ kind, name, mark }),
+  });
+  if (!res.ok) throw new Error("保存标记失败");
+  bookmarks = await res.json();
+}
+function editMark(kind, name) {
+  const dialog = $("#mark-dialog");
+  const mark = getMark(kind, name) || { purposes: [], priority: "undecided" };
+  dialog.dataset.kind = kind;
+  dialog.dataset.name = name;
+  dialog.querySelectorAll("[name=purpose]").forEach((x) => { x.checked = mark.purposes.includes(x.value); });
+  dialog.querySelectorAll("[name=priority]").forEach((x) => { x.checked = x.value === mark.priority; });
+  dialog.showModal();
+}
+async function saveMarkDialog(remove = false) {
+  const dialog = $("#mark-dialog");
+  const mark = remove ? {} : {
+    purposes: [...dialog.querySelectorAll("[name=purpose]:checked")].map((x) => x.value),
+    priority: dialog.querySelector("[name=priority]:checked")?.value || "",
+  };
+  if (!remove && !mark.purposes.length) {
+    alert("请至少选择一个标记用途。");
+    return;
+  }
+  await saveMark(dialog.dataset.kind, dialog.dataset.name, mark);
+  dialog.close();
+  route();
+}
+
 function highlight(text, q) {
   if (!q) return esc(text);
   const lower = text.toLowerCase();
@@ -159,6 +212,7 @@ async function viewNote(kind, name) {
   setNav(kind);
   window.scrollTo(0, 0);
   try {
+    await getBookmarks();
     const html = await apiNote(kind, name);
     let nav = "";
     if (kind !== "docs") {
@@ -170,7 +224,9 @@ async function viewNote(kind, name) {
           idx < items.length - 1 ? items[idx + 1] : null);
       }
     }
-    content.innerHTML = backLink(kind, `#/${kind}`, KINDS[kind].label) + nav;
+    const mark = kind === "papers" || kind === "signals"
+      ? markButton(kind, name) + markBadges(kind, name) : "";
+    content.innerHTML = `<div class="note-actions">${backLink(kind, `#/${kind}`, KINDS[kind].label)}<div class="mark-summary">${mark}</div></div>` + nav;
     content.appendChild(renderArticle(html));
     if (nav) {
       content.insertAdjacentHTML("beforeend",
@@ -235,6 +291,7 @@ function filterPapers(papers) {
 
 async function viewPapers() {
   setNav("papers");
+  await getBookmarks();
   if (!papersCache) papersCache = await api("/api/papers");
   const papers = papersCache.slice().sort((a, b) =>
     (b.observed_on || "").localeCompare(a.observed_on || ""));
@@ -261,14 +318,16 @@ async function viewPapers() {
   const tableHTML = (rows) => rows.length ? `
     <table class="paper-table">
       <thead><tr>
-        <th>标题</th><th>第一作者</th><th>年份</th><th>主领域</th>
+        <th class="mark-col">标记</th><th>标题</th><th>第一作者</th><th>年份</th><th>主领域</th>
         <th>相关性</th><th>置信度</th><th>观察日期</th>
       </tr></thead>
       <tbody>
         ${rows.map((p) => `
           <tr class="clickable" data-href="#/paper/${esc(p.id)}">
+            <td>${markButton("papers", p.id)}</td>
             <td class="title-cell">
               <div class="t">${esc(p.title)}</div>
+              ${markBadges("papers", p.id)}
               ${p.takeaway ? `<div class="subtle">${esc(p.takeaway)}</div>` : ""}
             </td>
             <td>${esc(p.first_author)}</td>
@@ -299,7 +358,8 @@ async function viewPapers() {
       render();
     }));
   bindPager((p) => { paperPage = p; render(); scrollToListTop(); });
-  $("#paper-table").addEventListener("click", (e) => {
+  $("#paper-table").addEventListener("click", async (e) => {
+    if (e.target.closest(".mark-btn")) return;
     const tr = e.target.closest("tr[data-href]");
     if (tr) location.hash = tr.dataset.href;
   });
@@ -361,6 +421,7 @@ async function getList(kind) {
 /* ---------- 信号 / 摘要 / 文档列表 ---------- */
 async function viewList(kind) {
   setNav(kind);
+  await getBookmarks();
   const items = await getList(kind);
   content.innerHTML = `
     <h1>${KINDS[kind].label} <span id="list-count" class="muted"></span></h1>
@@ -395,10 +456,14 @@ async function viewList(kind) {
           ${it.source_type ? `<span class="muted">${esc(it.source_type)}</span>` : ""}
         </div>` : `<div class="card-meta muted">${esc(it.date)}</div>`;
       return `
-      <a class="card" href="#/${KINDS[kind].route}/${esc(it.name)}">
-        <div class="card-title">${esc(it.title)}</div>
-        ${extra}
-      </a>`;
+      <div class="card-wrap">
+        <a class="card" href="#/${KINDS[kind].route}/${esc(it.name)}">
+          <div class="card-title">${esc(it.title)}</div>
+          ${kind === "signals" ? markBadges("signals", it.name) : ""}
+          ${extra}
+        </a>
+        ${kind === "signals" ? markButton("signals", it.name) : ""}
+      </div>`;
     }).join("") || `<p class="muted">没有符合过滤条件的信号。</p>`;
     $("#pager").innerHTML = pagerHTML(page, totalPages, rows.length);
   };
@@ -414,6 +479,31 @@ async function viewList(kind) {
       }));
   }
   render();
+}
+
+/* ---------- 标记 ---------- */
+async function viewBookmarks() {
+  setNav("bookmarks");
+  await getBookmarks();
+  if (!papersCache) papersCache = await api("/api/papers");
+  const signals = await getList("signals");
+  const papers = papersCache.filter((p) => getMark("papers", p.id));
+  const markedSignals = signals.filter((s) => getMark("signals", s.name));
+  const section = (title, kind, items) => `<section class="panel">
+    <h2>${title} <span class="muted">(${items.length})</span></h2>
+    <div class="card-list">${items.map((it) => `
+      <div class="card-wrap">
+        <a class="card" href="#/${KINDS[kind].route}/${esc(kind === "papers" ? it.id : it.name)}">
+          <div class="card-title">${esc(it.title)}</div>
+          ${markBadges(kind, kind === "papers" ? it.id : it.name)}
+        </a>
+        ${markButton(kind, kind === "papers" ? it.id : it.name)}
+      </div>`).join("") || `<p class="muted">暂无标记。</p>`}</div>
+  </section>`;
+  content.innerHTML = `<h1>标记</h1>
+    <p class="lead">保存在本地 <code>dashboard/bookmarks.json</code>，可直接复制或替换该文件。</p>
+    ${section("论文", "papers", papers)}
+    ${section("信号", "signals", markedSignals)}`;
 }
 
 /* ---------- 搜索 ---------- */
@@ -467,6 +557,7 @@ function route() {
     "#/overview": viewOverview,
     "#/papers": viewPapers,
     "#/signals": () => viewList("signals"),
+    "#/bookmarks": viewBookmarks,
     "#/digests": () => viewList("digests"),
     "#/docs": () => viewList("docs"),
   };
@@ -478,6 +569,17 @@ function route() {
 
 /* ---------- 启动 ---------- */
 initTheme();
+document.addEventListener("click", (e) => {
+  const mark = e.target.closest(".mark-btn");
+  if (mark) {
+    e.preventDefault();
+    e.stopPropagation();
+    editMark(mark.dataset.markKind, mark.dataset.markName);
+  }
+});
+$("#mark-save").addEventListener("click", () => saveMarkDialog());
+$("#mark-remove").addEventListener("click", () => saveMarkDialog(true));
+
 $("#search").addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     const q = e.target.value.trim();
