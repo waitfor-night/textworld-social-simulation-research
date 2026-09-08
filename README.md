@@ -1,6 +1,13 @@
-# TextWorld / Social Simulation Research Radar
+# TextWorld / Social Simulation 个人研究综述
 
-一个面向文本世界模型（text world models）、文本环境（text environments）、社会模拟（social simulation）和角色扮演智能体（role-playing agents）的公开研究索引。
+这是一份**极度个人风格的研究综述**，围绕文本世界模型（text world models）、文本环境（text environments）、社会模拟（social simulation）与角色扮演智能体（role-playing agents）展开。
+
+它不是公共索引，而是一条主线：
+
+> 筛选我认为重要的观点与方法论，建立自己关于「文本世界」的体系，
+> 并最终基于这套体系完成一个 text world model 项目。
+
+当前体系的综合文档见 [`docs/design-synthesis.md`](docs/design-synthesis.md)。
 
 本仓库收集以下主题的论文、基准测试、环境、智能体架构与研究信号：
 
@@ -53,4 +60,4 @@ arXiv 支持通过邮件订阅每日论文列表。其官方说明要求向相�
 
 ## 状态
 
-这是一份持续维护的研究地图。早期条目可能不完整；欢迎通过 issue 或 pull request 提出修正和补充。
+这是一份持续演进的个人综述：前期条目多而杂，广收候选；后期随体系成型，覆盖度主动收窄到自己的研究主线。事实性错误欢迎通过 issue 指正。
