@@ -190,8 +190,7 @@ function renderArticle(html) {
 async function orderedNames(kind) {
   if (kind === "papers") {
     if (!papersCache) papersCache = await api("/api/papers");
-    return filterPapers(papersCache.slice()
-      .sort((a, b) => (b.observed_on || "").localeCompare(a.observed_on || "")))
+    return filterPapers(sortPapers(papersCache.slice()))
       .map((p) => ({ name: p.id, title: p.title }));
   }
   const items = await getList(kind);
@@ -278,7 +277,17 @@ async function viewOverview() {
 /* ---------- 论文 ---------- */
 let papersCache = null;
 let paperPage = 1;
-const paperFilters = { area: "", relevance: "", text: "" };
+const paperFilters = { area: "", relevance: "", text: "", sort: "newest" };
+
+function paperDate(p) {
+  const match = String(p.id || "").match(/^(\d{2})(\d{2})\./);
+  return match ? `${match[1]}${match[2]}` : `${p.year || "0000"}00`;
+}
+
+function sortPapers(papers) {
+  const direction = paperFilters.sort === "oldest" ? 1 : -1;
+  return papers.sort((a, b) => direction * (paperDate(a).localeCompare(paperDate(b)) || a.id.localeCompare(b.id)));
+}
 
 function filterPapers(papers) {
   const q = paperFilters.text.trim().toLowerCase();
@@ -293,8 +302,7 @@ async function viewPapers() {
   setNav("papers");
   await getBookmarks();
   if (!papersCache) papersCache = await api("/api/papers");
-  const papers = papersCache.slice().sort((a, b) =>
-    (b.observed_on || "").localeCompare(a.observed_on || ""));
+  const papers = sortPapers(papersCache.slice());
   const areas = [...new Set(papers.map((p) => p.primary_area || "?"))].sort();
 
   content.innerHTML = `
@@ -306,6 +314,10 @@ async function viewPapers() {
       <select id="f-rel"><option value="">全部相关性</option>
         ${Object.entries(RELEVANCE).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}
       </select>
+      <select id="f-sort">
+        <option value="newest">发布时间：从新到旧</option>
+        <option value="oldest">发布时间：从旧到新</option>
+      </select>
       <input id="f-text" type="search" placeholder="按标题 / 作者 / 标签过滤…">
     </div>
     <div id="paper-table"></div>
@@ -313,6 +325,7 @@ async function viewPapers() {
 
   $("#f-area").value = paperFilters.area;
   $("#f-rel").value = paperFilters.relevance;
+  $("#f-sort").value = paperFilters.sort;
   $("#f-text").value = paperFilters.text;
 
   const tableHTML = (rows) => rows.length ? `
@@ -349,11 +362,13 @@ async function viewPapers() {
     $("#pager").innerHTML = pagerHTML(paperPage, totalPages, rows.length);
   };
 
-  ["#f-area", "#f-rel", "#f-text"].forEach((s) =>
+  ["#f-area", "#f-rel", "#f-sort", "#f-text"].forEach((s) =>
     $(s).addEventListener("input", () => {
       paperFilters.area = $("#f-area").value;
       paperFilters.relevance = $("#f-rel").value;
+      paperFilters.sort = $("#f-sort").value;
       paperFilters.text = $("#f-text").value;
+      sortPapers(papers);
       paperPage = 1;
       render();
     }));
