@@ -50,7 +50,7 @@
 
 当前的架构与研究设计综合文档见 [`docs/design-synthesis.md`](docs/design-synthesis.md)。
 
-最新的研究收录摘要见 [`digests/2026-09-08.md`](digests/2026-09-08.md)。此前的文献与产品快照见 [`digests/2026-09-04-literature-product-snapshot.md`](digests/2026-09-04-literature-product-snapshot.md)，对应的产品对比见 [`signals/2026-09-04-roleplay-product-landscape.md`](signals/2026-09-04-roleplay-product-landscape.md)。
+最新的研究收录摘要见 [`digests/2026-09-09.md`](digests/2026-09-09.md)，仓库扩充路线见 [`docs/repository-development-plan.md`](docs/repository-development-plan.md)。此前的文献与产品快照见 [`digests/2026-09-04-literature-product-snapshot.md`](digests/2026-09-04-literature-product-snapshot.md)，对应的产品对比见 [`signals/2026-09-04-roleplay-product-landscape.md`](signals/2026-09-04-roleplay-product-landscape.md)。
 
 ## arXiv 收录
 
