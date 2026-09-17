@@ -18,7 +18,7 @@
 | 受控交互 | 少数几个带有目标、秘密和关系的角色 | 对话、谈判、合作、冲突 |
 | 开放社会世界 | 许多在共享环境中持续存在的智能体 | 信息级联、制度、迁徙、危机 |
 
-这些目标不应该用一个分数来比较。[LLM 社会模拟综述](../papers/2412.03563.md) 的个体—情景—社会三分法和 [角色智能体综述](../papers/2404.18231.md) 的人口统计—既定角色—个体化 persona 三分法提供了文献参照；[TrustSim](../papers/2410.23426.md) 进一步表明通用模型能力不自动转化为角色模拟一致性。角色研究本身也经历了从隐式 [speaker persona](../papers/1603.06155.md)、显式 [PERSONA-CHAT profile](../papers/1801.07243.md)，到基于原作经历的 [ChatHaruhi](../papers/2308.09597.md) 和可训练的 [RoleLLM](../papers/2310.00746.md) / [Character-LLM](../papers/2310.10158.md)；其评测随后从知识与风格扩展到 [人格访谈](../papers/2310.17976.md) 和 [角色决策](../papers/2404.12138.md)。[CoSER](../papers/2502.09082.md) 进一步把文学场景、人物经历、对话、动作、内心活动和多角色表演放进同一数据/评测框架；后续 [ROLETHINK](../papers/2503.08193.md) 与 [HER](../papers/2601.21459.md) 分别探索内心推理评测和 reasoning/RL，[HumanLLM](../papers/2601.10198.md) 则尝试建模多个心理模式的情境交互。这些工作仍不提供权威世界状态：内心文本可能是事后合理化，文学行为也不能直接外推到现实个体。地图应至少报告五个独立的尺度：
+这些目标不应该用一个分数来比较。[LLM 社会模拟综述](../papers/2412.03563.md) 的个体—情景—社会三分法和 [角色智能体综述](../papers/2404.18231.md) 的人口统计—既定角色—个体化 persona 三分法提供了文献参照；[TrustSim](../papers/2410.23426.md) 进一步表明通用模型能力不自动转化为角色模拟一致性。角色研究本身也经历了从隐式 [speaker persona](../papers/1603.06155.md)、显式 [PERSONA-CHAT profile](../papers/1801.07243.md)，到基于原作经历的 [ChatHaruhi](../papers/2308.09597.md) 和可训练的 [RoleLLM](../papers/2310.00746.md) / [Character-LLM](../papers/2310.10158.md)；其评测随后从知识与风格扩展到 [人格访谈](../papers/2310.17976.md) 和 [角色决策](../papers/2404.12138.md)。[CoSER](../papers/2502.09082.md) 进一步把文学场景、人物经历、对话、动作、内心活动和多角色表演放进同一数据/评测框架；后续 [ROLETHINK](../papers/2503.08193.md) 与 [HER](../papers/2601.21459.md) 分别探索内心推理评测和 reasoning/RL，[HumanLLM](../papers/2601.10198.md) 则尝试建模多个心理模式的情境交互。这些工作仍不提供权威世界状态：内心文本可能是事后合理化，文学行为也不能直接外推到现实个体。[ANIMASK](../papers/2609.16667.md) 进一步用移除 persona 的配对重放区分角色约束与底层模型默认政策；[RoleBreak](../papers/2609.16614.md) 则显示语音角色的首次 persona/安全失败可能在十余轮内出现。因此 persona 评测应同时包含因果消融和首次失败时间，而不能只报告平均角色相似度。地图应至少报告五个独立的尺度：
 
 - 身份：人口学提示词 → 历史/轨迹 → 深度访谈或生活记录；
 - 动作：单次回答 → 对话轮次 → 平台动作 → 日程/资源动作；
@@ -67,7 +67,7 @@ environment interaction → trajectory and feedback → learned world model
 Participant = identity + controller(human|AI) + visibility + branch_state
 ```
 
-这使得同一个世界可以容纳人类控制的记者、AI 居民或临时叙述者，同时保持权限和因果状态的显式化。
+这使得同一个世界可以容纳人类控制的记者、AI 居民或临时叙述者，同时保持权限和因果状态的显式化。[Agentic Societies Need a Social Harness](../papers/2609.17527.md) 进一步提示 personal harness 与跨主体 social harness 应分离：后者负责身份、消息合法性、运行时验证和事后追责，而不是让每个角色自行决定通信是否可信。
 
 ## 5. 「GM」在此设计中意味着什么
 
@@ -188,8 +188,8 @@ authoritative event log → event DAG → character-view subgraph
 - 叙事因果性、能动性、约束内的惊喜感，以及对人类作者的实用性；
 - 请求数、上下文长度、前缀复用、队列/预填充/解码/工具等待延迟，以及每个有效事件的成本。
 
-不要依赖单一的大模型评判。使用独立的结构化指标；对于叙事实用性，采用作家或领域专家的盲评。
+不要依赖单一的大模型评判。使用独立的结构化指标；对于叙事实用性，采用作家或领域专家的盲评。[ERPBench](../papers/2609.17885.md) 的 live database 评分显示保存表单不等于写入正确状态；[MIRAGE](../papers/2609.19059.md) 同样显示回答正确不等于真实使用历史证据。因此 outcome、authority state 与 provenance 必须分开。审计还应记录 principal、model/tool substrate 与 evidence 三类独立性，避免同源 auditor 形成自证闭环。
 
 ## 12. 研究与系统轨迹
 
-模拟可以成为一种独特的推理工作负载，但前提是轨迹保留因果上下文。记录 `simulation_id`、`branch_id`、逻辑 tick、智能体、事件、依赖父节点、模型、共享前缀标识、输入/输出 token 数、队列/预填充/解码/工具等待时间、缓存复用、优先级和提交时间。科学运行固定使用单一模型/配置；把模型路由和服务优化作为独立的系统实验来研究。
+模拟可以成为一种独特的推理工作负载，但前提是轨迹保留因果上下文。记录 `simulation_id`、`branch_id`、逻辑 tick、智能体、事件、依赖父节点、模型、共享前缀标识、输入/输出 token 数、队列/预填充/解码/工具等待时间、缓存复用、优先级和提交时间。科学运行固定使用单一模型/配置；把模型路由和服务优化作为独立的系统实验来研究。[Emergence World](../papers/2609.17320.md) 与 [Collective Loss of Control](../papers/2609.18460.md) 表明持续系统还要记录信息进入记忆、跨代理/跨运行传播、检测、遏制和延迟行动；单轮安全判定不能代表系统级韧性。恢复操作则应像 [Rollback-Induced Reflection](../papers/2609.18304.md) 那样分开记录环境回滚和跨分支保留的知识，并为后者保存来源 lineage。
