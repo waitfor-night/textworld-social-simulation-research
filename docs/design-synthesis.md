@@ -35,7 +35,7 @@
 - **文本环境（text-based environment）** 是外部接口和实验世界。它提供事实、合法动作、状态转移、观察和反馈。
 - **文本世界模型（text world model）** 是智能体对该世界的内部预测模型。它应跟踪状态、预测后果、表示不确定性、泛化到新组合，并支持反事实推理。
 
-环境是真相的来源；世界模型是关于真相的假设。一个有用的循环是：
+环境是真相的来源；世界模型是关于真相的假设。[World Model Science](../papers/2609.17419.md) 的 trajectory-level 对齐表明，局部动作仍可通过时全局状态保真可能已经失败，因此必须逐步比较 agent-implied state 与 benchmark-grounded state。一个有用的循环是：
 
 ```text
 environment interaction → trajectory and feedback → learned world model
@@ -87,7 +87,7 @@ GM LLM    = one replaceable model used by selected operators
 - `NarrativeRenderer`（叙事渲染器）— 从已提交的历史中生成新闻、传闻、场景或角色视角的散文；
 - `ConsistencyAuditor`（一致性审计器）— 检测信息泄漏、矛盾、无效效果和因果缺口。
 
-对投影导向角色最贴切的名称是 **Perspective Game Master（视角游戏主控，PGM）**，但架构应保留更宽泛的 **Game Master System** 名称，因为控制平面做的远不止投影。
+对投影导向角色最贴切的名称是 **Perspective Game Master（视角游戏主控，PGM）**，但架构应保留更宽泛的 **Game Master System** 名称，因为控制平面做的远不止投影。动作提交也应区分 authorization 与 readiness：[Cognitive Admission Control](../papers/2609.16313.md) 提示高风险 typed action 在执行前还要满足证据类别、新鲜度、scope 和 witness independence，并将证书、dispatch guard 与 replay protection 绑定。
 
 ## 6. 权威、观察与信念
 
