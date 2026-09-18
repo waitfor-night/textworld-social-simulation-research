@@ -67,7 +67,7 @@ environment interaction → trajectory and feedback → learned world model
 Participant = identity + controller(human|AI) + visibility + branch_state
 ```
 
-这使得同一个世界可以容纳人类控制的记者、AI 居民或临时叙述者，同时保持权限和因果状态的显式化。[Agentic Societies Need a Social Harness](../papers/2609.17527.md) 进一步提示 personal harness 与跨主体 social harness 应分离：后者负责身份、消息合法性、运行时验证和事后追责，而不是让每个角色自行决定通信是否可信。
+这使得同一个世界可以容纳人类控制的记者、AI 居民或临时叙述者，同时保持权限和因果状态的显式化。[Agentic Societies Need a Social Harness](../papers/2609.17527.md) 进一步提示 personal harness 与跨主体 social harness 应分离：后者负责身份、消息合法性、运行时验证和事后追责，而不是让每个角色自行决定通信是否可信。隔离运行也不是隐式信道的屏障：[For Your Eyes Only](../papers/2609.19504.md) 显示同架构隔离实例仍可仅靠共享预训练传递可检测信号。
 
 ## 5. 「GM」在此设计中意味着什么
 
@@ -87,7 +87,7 @@ GM LLM    = one replaceable model used by selected operators
 - `NarrativeRenderer`（叙事渲染器）— 从已提交的历史中生成新闻、传闻、场景或角色视角的散文；
 - `ConsistencyAuditor`（一致性审计器）— 检测信息泄漏、矛盾、无效效果和因果缺口。
 
-对投影导向角色最贴切的名称是 **Perspective Game Master（视角游戏主控，PGM）**，但架构应保留更宽泛的 **Game Master System** 名称，因为控制平面做的远不止投影。动作提交也应区分 authorization 与 readiness：[Cognitive Admission Control](../papers/2609.16313.md) 提示高风险 typed action 在执行前还要满足证据类别、新鲜度、scope 和 witness independence，并将证书、dispatch guard 与 replay protection 绑定。
+对投影导向角色最贴切的名称是 **Perspective Game Master（视角游戏主控，PGM）**，但架构应保留更宽泛的 **Game Master System** 名称，因为控制平面做的远不止投影。动作提交也应区分 authorization 与 readiness：[Cognitive Admission Control](../papers/2609.16313.md) 提示高风险 typed action 在执行前还要满足证据类别、新鲜度、scope 和 witness independence，并将证书、dispatch guard 与 replay protection 绑定。[Cognitive Serializability](../papers/2609.20261.md) 进一步要求动作与其推导输入（数据、证据、政策、授权）存在共同有效点，并把授权 provenance 作为结构化状态而非摘要文本传递——[Verification-Status Laundering](../papers/2609.20211.md) 显示摘要和记忆压缩会洗掉验证状态，把风险动作批准率从个位数推到 60–98%。并发资源冲突同样需要显式控制：[ClashBench](../papers/2609.19892.md) 中 44.5% 轨迹出现破坏性抢占，且多数未在最终回复中披露。
 
 ## 6. 权威、观察与信念
 
@@ -110,6 +110,8 @@ WorldState(t)
 3. **信念（Belief）** — 参与者认为该观察意味着什么；它可能是错误的、不完整的或有偏的。
 
 大模型可以用符合角色的方式解释过滤后的信息切片，但它绝不能决定一个隐藏的秘密变得可见。这种分离使错误信息、私有知识、不对称信息和相互竞争的解释成为可能，而不会破坏世界真相。
+
+扩散机制本身也必须参数化。[Message capacity and claim wording](../papers/2609.19183.md) 表明集体真值发现的转折点由每个 agent 的阅读上限和 claim 措辞设定的单 agent 阈值共同决定；两者都是可测的单 agent 量。因此 SDE 实验至少要报告 message capacity、wording threshold 和网络度统计，而非只报告拓扑。
 
 ## 7. Social MapReduce 执行模型
 
