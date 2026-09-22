@@ -87,7 +87,7 @@ GM LLM    = one replaceable model used by selected operators
 - `NarrativeRenderer`（叙事渲染器）— 从已提交的历史中生成新闻、传闻、场景或角色视角的散文；
 - `ConsistencyAuditor`（一致性审计器）— 检测信息泄漏、矛盾、无效效果和因果缺口。
 
-对投影导向角色最贴切的名称是 **Perspective Game Master（视角游戏主控，PGM）**，但架构应保留更宽泛的 **Game Master System** 名称，因为控制平面做的远不止投影。动作提交也应区分 authorization 与 readiness：[Cognitive Admission Control](../papers/2609.16313.md) 提示高风险 typed action 在执行前还要满足证据类别、新鲜度、scope 和 witness independence，并将证书、dispatch guard 与 replay protection 绑定。[Cognitive Serializability](../papers/2609.20261.md) 进一步要求动作与其推导输入（数据、证据、政策、授权）存在共同有效点，并把授权 provenance 作为结构化状态而非摘要文本传递——[Verification-Status Laundering](../papers/2609.20211.md) 显示摘要和记忆压缩会洗掉验证状态，把风险动作批准率从个位数推到 60–98%。并发资源冲突同样需要显式控制：[ClashBench](../papers/2609.19892.md) 中 44.5% 轨迹出现破坏性抢占，且多数未在最终回复中披露。
+对投影导向角色最贴切的名称是 **Perspective Game Master（视角游戏主控，PGM）**，但架构应保留更宽泛的 **Game Master System** 名称，因为控制平面做的远不止投影。工具结果还必须满足 execution integrity：[APEXA](../papers/2609.24165.md) 在部署中捕获了“生成完整校准报告但命令从未执行”的情况，因此没有 committed event 或 tool receipt 的结果只能成为明确的 non-result。动作提交也应区分 authorization 与 readiness：[ActGov](../papers/2609.24446.md) 在 effect boundary 对每个工具调用检查 task-scoped authorization；[Cognitive Admission Control](../papers/2609.16313.md) 则提示即使已有权限，高风险 typed action 在执行前仍要满足证据类别、新鲜度、scope 和 witness independence，并将证书、dispatch guard 与 replay protection 绑定。[Cognitive Serializability](../papers/2609.20261.md) 进一步要求动作与其推导输入（数据、证据、政策、授权）存在共同有效点，并把授权 provenance 作为结构化状态而非摘要文本传递——[Verification-Status Laundering](../papers/2609.20211.md) 显示摘要和记忆压缩会洗掉验证状态，把风险动作批准率从个位数推到 60–98%。并发资源冲突同样需要显式控制：[ClashBench](../papers/2609.19892.md) 中 44.5% 轨迹出现破坏性抢占，且多数未在最终回复中披露。
 
 ## 6. 权威、观察与信念
 
@@ -173,7 +173,7 @@ authoritative event log → event DAG → character-view subgraph
 3. 带种子、模型/提示词版本、场景版本、采样参数和代码提交号的实验配置；
 4. 基于规则、随机、阈值和效用的基线；
 5. 身份投影和信息权限测试；
-6. NPC 运行时、记忆、关系、活动和日程适配器；最小主动策略应保留 `act / inspect / ask / wait`，且求助由已测准确率、信息价值和成本触发，而不是模型自报置信度；
+6. NPC 运行时、记忆、关系、活动和日程适配器；把记忆拆成结构化写入、预算化检索和使用门控，并分别测量 over-use/under-use；最小主动策略应保留 `act / inspect / ask / wait`，且求助由已测准确率、反事实信息价值和成本触发，而不是模型自报置信度；持久身份/策略更新先进入 provisional state，经配对重放和保护场景后再升级；
 7. 扩散、事件生命周期、反馈和因果重放；
 8. 叙事渲染，最后才是大规模服务/追踪优化。
 
@@ -185,7 +185,7 @@ authoritative event log → event DAG → character-view subgraph
 
 - 世界不变量、事务正确性、状态哈希和重放确定性；在每个 tick 做断言，并用故意删除必需能力的 mutant 验证 evaluator 确实会拒绝错误实现；
 - 个体身份/目标一致性、知识边界违规，以及干预下的行为；
-- 群体分布、方差、相关性、网络结构和时间动态；
+- 群体分布、方差、相关性、网络结构和时间动态；校准前先做参数可识别性与 prior-predictive reachability，再以未参与修复的统计做 held-out adequacy audit；
 - 事件检测的精确率/召回率、提前量、生命周期、空间范围和反事实敏感性；
 - 叙事因果性、能动性、约束内的惊喜感，以及对人类作者的实用性；
 - 请求数、上下文长度、前缀复用、队列/预填充/解码/工具等待延迟，以及每个有效事件的成本。
