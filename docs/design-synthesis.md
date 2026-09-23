@@ -67,7 +67,7 @@ environment interaction → trajectory and feedback → learned world model
 Participant = identity + controller(human|AI) + visibility + branch_state
 ```
 
-这使得同一个世界可以容纳人类控制的记者、AI 居民或临时叙述者，同时保持权限和因果状态的显式化。[Agentic Societies Need a Social Harness](../papers/2609.17527.md) 进一步提示 personal harness 与跨主体 social harness 应分离：后者负责身份、消息合法性、运行时验证和事后追责，而不是让每个角色自行决定通信是否可信。隔离运行也不是隐式信道的屏障：[For Your Eyes Only](../papers/2609.19504.md) 显示同架构隔离实例仍可仅靠共享预训练传递可检测信号。
+这使得同一个世界可以容纳人类控制的记者、AI 居民或临时叙述者，同时保持权限和因果状态的显式化。[DUMA-Bench](../papers/2609.24662.md) 表明用户与 agent 均可改变共享状态的 dual-control 设定会显著扩大攻击面，因此 human/AI controller 必须经过同一 typed effect、权限和审计边界。[Agentic Societies Need a Social Harness](../papers/2609.17527.md) 进一步提示 personal harness 与跨主体 social harness 应分离：后者负责身份、消息合法性、运行时验证和事后追责，而不是让每个角色自行决定通信是否可信。隔离运行也不是隐式信道的屏障：[For Your Eyes Only](../papers/2609.19504.md) 显示同架构隔离实例仍可仅靠共享预训练传递可检测信号。
 
 ## 5. 「GM」在此设计中意味着什么
 
@@ -108,6 +108,8 @@ WorldState(t)
 1. **权威（Authority）** — 实际发生了什么：库存、价格、法律、位置、关系边、事件阶段。
 2. **观察（Observation）** — 参与者通过位置、角色、组织、渠道、延迟和可靠性所能获得的信息。
 3. **信念（Belief）** — 参与者认为该观察意味着什么；它可能是错误的、不完整的或有偏的。[Bayesian Belief Layer](../papers/2609.21997.md) 进一步展示了一种最小可审计实现：用概率 stance 和显式 prior strength 控制更新，再把语言表达作为独立通道，而不是从输出文本反推 belief。
+
+状态还必须区分 `tentative → committed → invalidated` 并保留 lineage。[Clarification Is Not Correction](../papers/2609.25337.md) 显示后续澄清常被模型当作追加上下文，而非撤销早期解释；因此冲突证据必须使旧 Task/Belief State 及其依赖计划显式失效。[ReAdapt](../papers/2609.25284.md) 进一步将目标、信念、关系、规范和披露状态放入 typed Adapt 步骤，提示 Relationship State 也应随证据更新，而非仅作为静态 persona 文本。
 
 大模型可以用符合角色的方式解释过滤后的信息切片，但它绝不能决定一个隐藏的秘密变得可见。这种分离使错误信息、私有知识、不对称信息和相互竞争的解释成为可能，而不会破坏世界真相。
 
@@ -183,12 +185,14 @@ authoritative event log → event DAG → character-view subgraph
 
 至少报告：
 
-- 世界不变量、事务正确性、状态哈希和重放确定性；在每个 tick 做断言，并用故意删除必需能力的 mutant 验证 evaluator 确实会拒绝错误实现；
-- 个体身份/目标一致性、知识边界违规，以及干预下的行为；
+- 世界不变量、事务正确性、状态哈希和重放确定性；计划节点同时记录预期状态和前置条件，环境拒绝后重建剩余状态序列，而非同义改写动作；在每个 tick 做断言，并用故意删除必需能力的 mutant 验证 evaluator 确实会拒绝错误实现；
+- 个体身份/目标一致性、知识边界违规，以及干预下的行为；persona 数据按用途授权，并用移除/屏蔽属性的配对重放检查隐性经济或行为 steering；
 - 群体分布、方差、相关性、网络结构和时间动态；校准前先做参数可识别性与 prior-predictive reachability，再以未参与修复的统计做 held-out adequacy audit；
 - 事件检测的精确率/召回率、提前量、生命周期、空间范围和反事实敏感性；
 - 叙事因果性、能动性、约束内的惊喜感，以及对人类作者的实用性；
 - 请求数、上下文长度、前缀复用、队列/预填充/解码/工具等待延迟，以及每个有效事件的成本。
+
+记忆也需要行动型配对验证：[DolphinBench](../papers/2609.24971.md) 要求有相关历史时任务成功、删除后失败，并同时报告成本与延迟；这比直接询问记忆事实更接近跨 session 承诺测试。持久 artifact 则应逐 checkpoint 报告 acquire、retain、adapt 和 selection gap，而不是只看演化终点。
 
 不要依赖单一的大模型评判，也不要用 gold-history next-turn 指标替代自主轨迹：局部文本、局部动作、环境执行和完整 episode 成功应分别报告。使用独立的结构化指标；对于叙事实用性，采用作家或领域专家的盲评。[ERPBench](../papers/2609.17885.md) 的 live database 评分显示保存表单不等于写入正确状态；[MIRAGE](../papers/2609.19059.md) 同样显示回答正确不等于真实使用历史证据。因此 outcome、authority state 与 provenance 必须分开。审计还应记录 principal、model/tool substrate 与 evidence 三类独立性，避免同源 auditor 形成自证闭环。
 
